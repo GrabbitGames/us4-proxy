@@ -55,5 +55,8 @@ if (autocloak) {
         iframe.style.border = 'none';
         newTab.document.body.style.margin = '0';
         newTab.document.body.appendChild(iframe);
+
+        const panicUrl = localStorage.getItem('panicUrl') || "https://classroom.google.com";
+        window.location.href = panicUrl;
     };
 }
