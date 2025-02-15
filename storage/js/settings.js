@@ -49,7 +49,7 @@ if (
     );
   } else {
     const siteTitle = localStorage.getItem('siteTitle') || "Home";
-    const siteLogo = localStorage.getItem('siteLogo') || "/storage/images/googleclassroom.png";
+    const siteLogo = localStorage.getItem('siteLogo') || "https://voucan-us4.github.io/storage/images/googleclassroom.png";
 
     popup.document.title = siteTitle;
 
