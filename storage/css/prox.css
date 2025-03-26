@@ -1,190 +1,190 @@
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: 'Comfortaa', sans-serif;
-        font-weight: bold;
-      }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Comfortaa', sans-serif;
+  font-weight: bold;
+}
 
-      body,
-      html {
-        height: 100%;
-        overflow: hidden;
-        display: flex;
-        flex-direction: column;
-        background-color: black;
-      }
+body,
+html {
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  background-color: black;
+}
 
-      .tabs {
-        display: flex;
-        align-items: center;
-        background: rgba(0, 0, 0, 0.3);
-        backdrop-filter: blur(10px);
-        padding: 2px 5px;
-        width: 85%;
-        position: fixed;
-        top: 0;
-        left: 50%;
-        transform: translateX(-50%);
-        z-index: 1200;
-        border-radius: 10px 10px 0 0;
-        justify-content: flex-start;
-        overflow: hidden;
-        max-height: 40px;
-        border-bottom: 2px solid rgba(255, 255, 255, 0.3);
-        transition: transform 0.3s ease-in-out;
-      }
+.tabs {
+  display: flex;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+  padding: 10px 20px;
+  width: 85%;
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1200;
+  border-radius: 10px 10px 0 0;
+  justify-content: flex-start;
+  overflow: hidden;
+  max-height: 60px;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+  transition: transform 0.3s ease-in-out;
+  box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.7);
+}
 
-      .tab {
-        display: flex;
-        align-items: center;
-        padding: 3px 10px;
-        color: white;
-        cursor: pointer;
-        background-color: rgba(255, 255, 255, 0.1);
-        border-right: 2px solid rgba(255, 255, 255, 0.3);
-        transition: background-color 0.3s;
-        flex-shrink: 0;
-        min-width: 100px;
-        max-width: 200px;
-        overflow: hidden;
-        border-radius: 5px;
-        text-overflow: ellipsis;
-      }
+.tab {
+  display: flex;
+  align-items: center;
+  padding: 8px 20px;
+  color: white;
+  cursor: pointer;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-right: 2px solid rgba(255, 255, 255, 0.3);
+  transition: background-color 0.3s;
+  flex-shrink: 0;
+  min-width: 120px;
+  max-width: 250px;
+  overflow: hidden;
+  border-radius: 5px;
+  text-overflow: ellipsis;
+  font-size: 18px; /* Increase tab text size */
+  box-shadow: 0 0 5px 1px rgba(255, 255, 255, 0.5); /* Glowing effect */
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.7); /* Glowing text effect */
+}
 
-      .tab.active {
-        background-color: rgba(255, 255, 255, 0.2);
-        color: white;
-      }
+.tab.active {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: white;
+  text-shadow: 0 0 15px rgba(255, 255, 255, 0.9);
+}
 
-      .tab:hover {
-        background-color: rgba(255, 255, 255, 0.3);
-      }
+.tab:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.9);
+}
 
-      .tab .close-button {
-        margin-left: 5px;
-        color: white;
-        cursor: pointer;
-        font-size: 14px;
-      }
+.tab .close-button {
+  margin-left: 5px;
+  color: white;
+  cursor: pointer;
+  font-size: 16px;
+}
 
-      .tab .close-button:hover {
-        color: white;
-      }
+.tab .close-button:hover {
+  color: white;
+}
 
-      .add-tab-button {
-        padding: 10px;
-        cursor: pointer;
-        background: rgba(255, 255, 255, 0.1);
-        color: white;
-        border: none;
-        outline: none;
-        font-size: 20px;
-        border-radius: 5px;
-      }
+.add-tab-button {
+  padding: 10px;
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  border: none;
+  outline: none;
+  font-size: 24px;
+  border-radius: 5px;
+  box-shadow: 0 0 5px 1px rgba(255, 255, 255, 0.5);
+}
 
-      .navbar {
-        display: flex;
-        align-items: center;
-        justify-content: flex-start;
-        background: rgba(0, 0, 0, 0.3);
-        backdrop-filter: blur(10px);
-        padding: 10px 5%;
-        color: white;
-        border-radius: 0 0 10px 10px;
-        position: fixed;
-        top: 40px;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 85%;
-        z-index: 1100;
-        transition: transform 0.3s ease-in-out;
-      }
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+  padding: 10px 5%;
+  color: white;
+  border-radius: 0 0 10px 10px;
+  position: fixed;
+  top: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 85%;
+  z-index: 1100;
+  transition: transform 0.3s ease-in-out;
+}
 
-      .navbar-left {
-        display: flex;
-        gap: 10px;
-      }
+.navbar-left {
+  display: flex;
+  gap: 10px;
+}
 
-      .nav-btn {
-        text-decoration: none;
-        color: white;
-        font-size: 16px;
-        padding: 5px 10px;
-        border-radius: 5px;
-        background: rgba(255, 255, 255, 0.1);
-        border: none;
-        transition: background-color 0.3s;
-      }
+.nav-btn {
+  text-decoration: none;
+  color: white;
+  font-size: 16px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  transition: background-color 0.3s;
+}
 
-      .nav-btn:hover {
-        background: rgba(255, 255, 255, 0.3);
-      }
+.nav-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
 
-      .search-bar-container {
-        display: flex;
-        justify-content: center;
-        width: 100%;
-        margin-left: 15px;
-      }
+/* Search Bar Styling */
+.search-bar-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  position: fixed;
+  top: 100px;  /* Position below the tabs */
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+}
 
-      .search-bar {
-        flex-grow: 1;
-        max-width: 600px;
-        padding: 10px;
-        border-radius: 20px;
-        border: 2px solid rgba(255, 255, 255, 0.3);
-        background: rgba(0, 0, 0, 0.3);
-        backdrop-filter: blur(10px);
-        color: white;
-        font-size: 16px;
-        outline: none;
-        text-align: center;
-      }
+.search-bar {
+  flex-grow: 1;
+  max-width: 600px;
+  padding: 18px 30px;
+  border-radius: 30px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+  color: white;
+  font-size: 18px; /* Increase font size for search bar */
+  outline: none;
+  text-align: center;
+  box-shadow: 0 0 15px 2px rgba(255, 255, 255, 0.7);
+  transition: box-shadow 0.3s ease-in-out;
+}
 
-      .search-bar::placeholder {
-        color: rgba(255, 255, 255, 0.7);
-      }
+.search-bar::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
 
-      .search-bar:focus {
-        border-color: rgba(255, 255, 255, 0.5);
-        background: rgba(0, 0, 0, 0.5);
-      }
+.search-bar:focus {
+  border-color: rgba(255, 255, 255, 0.5);
+  background: rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 25px 5px rgba(255, 255, 255, 0.9);
+}
 
-      .content-wrapper {
-        flex-grow: 1;
-        overflow: hidden;
-        position: relative;
-        height: 100%;
-      }
+.content-wrapper {
+  flex-grow: 1;
+  overflow: hidden;
+  position: relative;
+  height: 100%;
+}
 
-      iframe {
-        width: 100%;
-        height: 100%;
-        border: none;
-        display: none;
-      }
+iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: none;
+}
 
-      iframe.active {
-        display: block;
-      }
+iframe.active {
+  display: block;
+}
 
-      .navbar.hidden,
-      .tabs.hidden {
-        transform: translateY(-200%);
-      }
-
-      .show-navbar-btn {
-        display: none;
-        padding: 10px;
-        background: rgba(255, 255, 255, 0.1);
-        color: white;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        font-size: 20px;
-      }
-
-      .show-navbar-btn.active {
-        display: block;
-      }
+.navbar.hidden,
+.tabs.hidden {
+  transform: translateY(-200%);
+}
