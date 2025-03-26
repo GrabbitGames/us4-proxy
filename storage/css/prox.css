@@ -89,6 +89,7 @@ html {
   border-radius: 5px;
   box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.5); /* Glow effect */
   transition: transform 0.2s;
+  height: 15px;
 }
 
 .add-tab-button:hover {
