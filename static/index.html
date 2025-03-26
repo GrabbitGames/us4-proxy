@@ -22,13 +22,6 @@
             <input id="uv-address" type="text" class="search-bar-home" placeholder="Search or enter a URL" />
             <button id="search-button" onclick="submitSearch()">SEARCH <i class="fa-solid fa-magnifying-glass"></i></button>
         </form>
-
-        <div id="search-container">
-    <form id="uv-form" onsubmit="submitSearch(event)">
-        <input id="uv-search-engine" value="https://duckduckgo.com/?q=${encodeURIComponent(input)}" type="hidden"/>
-        <input id="uv-address" type="text" class="search-bar-home" placeholder="Type ://games for games" />
-        <button id="search-button" type="submit">SEARCH <i class="fa-solid fa-magnifying-glass"></i></button>
-    </form>
 </div>
         
         <div class="desc left-margin">
@@ -72,51 +65,4 @@
     regsw();
     </script>
 </body>
-    <script>// Array of placeholder text for the search bar
-const placeholders = [
-    "Type ://games for games",
-    "Type ://apps for apps",
-    "Type ://settings for settings",
-    "Type ://movies for movies"
-];
-let placeholderIndex = 0;
-
-// Function to cycle through the placeholder text
-function cyclePlaceholder() {
-    const searchInput = document.getElementById("uv-address");
-    searchInput.placeholder = placeholders[placeholderIndex];
-    placeholderIndex = (placeholderIndex + 1) % placeholders.length; // Cycle through the array
-}
-
-// Start cycling the placeholder text every 2 seconds
-setInterval(cyclePlaceholder, 3000); // Change every 3 seconds
-
-// Function to handle form submission and redirects
-function submitSearch(event) {
-    event.preventDefault(); // Prevent form submission to handle it via JavaScript
-
-    const input = document.getElementById("uv-address").value.trim().toLowerCase();
-
-    // Handle custom redirects for "games", "apps", "settings", "movies"
-    if (input === "://games") {
-        window.location.href = "https://yourgamespage.com"; // Replace with the actual games URL
-    } else if (input === "://apps") {
-        window.location.href = "https://yourapps.com"; // Replace with the actual apps URL
-    } else if (input === "://settings") {
-        window.location.href = "https://yoursettings.com"; // Replace with the actual settings URL
-    } else if (input === "://movies") {
-        window.location.href = "https://yourmovies.com"; // Replace with the actual movies URL
-    } else {
-        // If the input doesn't match any of the predefined URLs, perform a DuckDuckGo search
-        window.location.href = "https://duckduckgo.com/?q=" + encodeURIComponent(input);
-    }
-}
-
-// Optional: Trigger the submitSearch function when the Enter key is pressed (better usability)
-document.getElementById("uv-address").addEventListener("keydown", function(event) {
-    if (event.key === "Enter") {
-        submitSearch(event);
-    }
-});
-</script>
 </html>
