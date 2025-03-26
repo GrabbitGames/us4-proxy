@@ -1,169 +1,102 @@
-
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-K8CCSDNPV3"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag('js', new Date());
-      gtag('config', 'G-K8CCSDNPV3');
-    </script>
+<html>
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta property="og:title" content="US4 | Proxy">
-    <meta property="og:description" content="Search the web freely with our web proxy!">
-    <meta property="og:image" content="/storage/images/logo.png">
-    <title>Home</title>
-    <link rel="icon" href="https://voucan-us4.github.io/storage/images/googleclassroom.png" type="image/png">
+    <title>New Tab</title>
+    <link rel="stylesheet" href="../storage/css/evenmorestyles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="/storage/css/prox.css">
-  </head>
-  <body>
-    <div class="tabs" id="tabs">
-      <div class="tab active" onclick="selectTab(this)">New Tab <span class="close-button" onclick="closeTab(event)">×</span></div>
-      <button class="add-tab-button">+</button>
+    <link rel="stylesheet" href="../storage/css/static.css">
+</head>
+<body>
+
+<script src="/storage/js/particles.js"></script>
+<script src="/storage/js/app.js"></script>
+<div id="particles-js"></div>
+
+<h1>Proxy</h1>
+<p id="dynamicParagraph">(TEXT)</p>
+
+<!-- Search bar and form -->
+<div id="search-container">
+    <form id="uv-form" onsubmit="submitSearch(event)">
+        <input id="uv-search-engine" value="https://duckduckgo.com/?q=%s" type="hidden"/> <!-- DuckDuckGo search URL -->
+        <input id="uv-address" type="text" class="search-bar-home" placeholder="Search or enter a URL" />
+        <button id="search-button" type="submit">SEARCH <i class="fa-solid fa-magnifying-glass"></i></button>
+    </form>
+
+    <div class="desc left-margin">
+        <p id="uv-error"></p>
+        <pre id="uv-error-code"></pre>
     </div>
-    <div class="navbar" id="navbar">
-      <div class="navbar-left">
-        <button onclick="home()" class="nav-btn">
-          <i class="fa fa-home"></i>
-        </button>
-        <button onclick="document.querySelector('.tab-iframe.active').contentWindow.history.back()" class="nav-btn">
-          <i class="fas fa-arrow-left"></i>
-        </button>
-        <button onclick="document.querySelector('.tab-iframe.active').contentWindow.history.forward()" class="nav-btn">
-          <i class="fas fa-arrow-right"></i>
-        </button>
-        <button onclick="document.querySelector('.tab-iframe.active').contentWindow.location.reload()" class="nav-btn">
-          <i class="fas fa-redo"></i>
-        </button>
-        <div class="search-bar-container">
-        <input type="text" id="search-input" class="search-bar" placeholder="Search or enter a URL">
-      </div>
-        <button onclick="inspect()" class="nav-btn">
-          <i class="fa fa-code"></i>
-        </button>
-        <button onclick="toggleFullscreen()" class="nav-btn">
-          <i class="fas fa-expand"></i>
-        </button>
-        <button onclick="settings()" class="nav-btn">
-          <i class="fa fa-cog"></i>
-        </button>
-        <button onclick="toggleNavbar()" class="nav-btn" id="hide-navbar-btn">
-          <i class="fa fa-chevron-up"></i>
-        </button>
-      </div>
-    </div>
-    <div class="show-navbar-btn" id="show-navbar-btn" onclick="toggleNavbar()">
-      <i class="fa fa-chevron-down"></i>
-    </div>
-    <div class="content-wrapper" id="content-wrapper">
-      <iframe class="tab-iframe active" src="/static/index.html" onload="updateTabName(this)"></iframe>
-    </div>
-    <script>
-      let tabCount = 1;
+</div>
 
-      function selectTab(tab) {
-        document.querySelectorAll('.tab, .tab-iframe').forEach(el => el.classList.remove('active'));
-        tab.classList.add('active');
-        document.querySelectorAll('.tab-iframe')[Array.from(tab.parentNode.children).indexOf(tab)].classList.add('active');
-      }
+<!-- Additional Scripts -->
+<script src="/static/uv/uv.bundle.js" defer></script>
+<script src="/static/uv/uv.config.js" defer></script>
+<script src="/static/register-sw.js" defer></script>
+<script src="/static/search.js" defer></script>
+<script src="/static/index.js" defer></script>
 
-      function addTab() {
-        tabCount++;
-        const tabsContainer = document.getElementById('tabs');
-        const newTab = document.createElement('div');
-        newTab.classList.add('tab');
-        newTab.innerHTML = `New Tab 
-                                            <span class="close-button" onclick="closeTab(event)">×</span>`;
-        newTab.addEventListener("click", () => selectTab(newTab));
-        tabsContainer.insertBefore(newTab, document.querySelector('.add-tab-button'));
-        const iframe = document.createElement('iframe');
-        iframe.classList.add('tab-iframe');
-        iframe.src = '/static/index.html';
-        iframe.onload = function() {
-          updateTabName(iframe);
-        };
-        document.getElementById('content-wrapper').appendChild(iframe);
-      }
+<script>
+    // Handle search logic, including URL handling with "://"
+    function submitSearch(event) {
+        event.preventDefault(); // Prevent form submission
 
-      function closeTab(event) {
-        event.stopPropagation();
-        const tab = event.target.closest('.tab');
-        const iframe = document.querySelectorAll('.tab-iframe')[Array.from(tab.parentNode.children).indexOf(tab)];
-        tab.remove();
-        iframe.remove();
-      }
+        const input = document.getElementById('uv-address').value.trim();
+        const searchEngineUrl = document.getElementById('uv-search-engine').value;
 
-      function updateTabName(iframe) {
-        setTimeout(() => {
-          const tabIndex = Array.from(document.querySelectorAll('.tab-iframe')).indexOf(iframe);
-          const tab = document.querySelectorAll('.tab')[tabIndex];
-          if (tab) {
-            tab.innerHTML = `${iframe.contentWindow.document.title || 'New Tab'} 
-                                            <span class="close-button" onclick="closeTab(event)">×</span>`;
-          }
-        }, 500);
-      }
-
-      function search() {
-        const input = document.getElementById('search-input').value.trim();
-        const iframe = document.querySelector('.tab-iframe.active');
-        if (input) {
-            const url = input.startsWith('http') ? input : `https://duckduckgo.com/?q=${encodeURIComponent(input)}`;
-            iframe.src = `/static/embed#${url}`;
+        // Check if the input starts with '://', indicating a custom prefix
+        if (input.startsWith('://')) {
+            if (input === '://games') {
+                window.location.href = "https://yourgamespage.com"; // Replace with actual games page URL
+            } else if (input === '://apps') {
+                window.location.href = "https://yourapps.com"; // Replace with actual apps page URL
+            } else if (input === '://settings') {
+                window.location.href = "https://yoursettings.com"; // Replace with actual settings page URL
+            } else if (input === '://movies') {
+                window.location.href = "https://yourmovies.com"; // Replace with actual movies page URL
+            } else {
+                // If no custom prefix is found, show error or redirect to a default page
+                alert("Unknown prefix! Please try again.");
+            }
+        } else {
+            // Otherwise, perform a search using DuckDuckGo
+            const query = encodeURIComponent(input);
+            const url = searchEngineUrl.replace('%s', query); // DuckDuckGo search URL
+            window.location.href = url; // Perform the search using DuckDuckGo
         }
-      }
+    }
 
-      function home() {
-        const iframe = document.querySelector('.tab-iframe.active');
-        iframe.src = '/static/index';
-      }
+    // Random phrases for dynamic paragraph
+    const phrases = [
+        "us5 when",
+        "credits to brunys for the proxy stuff",
+        "idk",
+        "there is a nuclear bomb heading for your location. please seek shelter immediately",
+    ];
 
-      function settings() {
-        const iframe = document.querySelector('.tab-iframe.active');
-        iframe.src = 'settings';
-      }
+    const paragraph = document.getElementById('dynamicParagraph');
 
-      function toggleFullscreen() {
-        const iframe = document.querySelector('.tab-iframe.active');
-        if (iframe.requestFullscreen) {
-          iframe.requestFullscreen();
-        } else if (iframe.mozRequestFullScreen) {
-          iframe.mozRequestFullScreen();
-        } else if (iframe.webkitRequestFullscreen) {
-          iframe.webkitRequestFullscreen();
-        } else if (iframe.msRequestFullscreen) {
-          iframe.msRequestFullscreen();
-        }
-      }
+    function changeText() {
+        const randomPhrase = phrases[Math.floor(Math.random() * phrases.length)];
+        paragraph.textContent = randomPhrase;
+    }
 
-      function inspect() {
-        window.location.href = "javascript: (function() { fetch('/storage/js/eruda.js') .then(response => { if (!response.ok) throw new Error('Network response was not ok'); return response.text(); }) .then(scriptText => eval(scriptText)) .catch(error => console.error('Error fetching or executing the script:', error)); })();"
-      }
+    paragraph.addEventListener('click', changeText);
+    window.onload = changeText;
+</script>
 
-      function toggleNavbar() {
-        const navbar = document.getElementById('navbar');
-        const tabs = document.getElementById('tabs');
-        const showNavbarBtn = document.getElementById('show-navbar-btn');
-        const hideNavbarBtn = document.getElementById('hide-navbar-btn');
-        navbar.classList.toggle('hidden');
-        tabs.classList.toggle('hidden');
-        showNavbarBtn.classList.toggle('active');
-        hideNavbarBtn.classList.toggle('active');
-      }
-
-      document.addEventListener("DOMContentLoaded", () => {
-        document.querySelector(".add-tab-button").addEventListener("click", addTab);
-        document.getElementById("search-input").addEventListener("keydown", (e) => {
-          if (e.key === "Enter") search();
+<script type="text/javascript" src="/storage/js/background.js"></script>
+<script>
+    async function regsw() {
+        await navigator.serviceWorker.register("/static/uv-sw.js", {
+            scope: "/static/",
         });
-      });
-    </script>
-    <script src="/storage/js/settings.js"></script>
-  </body>
+    }
+
+    regsw();
+</script>
+
+</body>
 </html>
+
