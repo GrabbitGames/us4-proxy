@@ -10,15 +10,16 @@
 <body>
 
 <script src="/storage/js/particles.js"></script>
-  <script src="/storage/js/app.js"></script>
+<script src="/storage/js/app.js"></script>
 <div id="particles-js"></div>
 
-    <h1>Proxy</h1>
-    <p id="dynamicParagraph">(TEXT)</p>
+<h1>Proxy</h1>
+<p id="dynamicParagraph">(TEXT)</p>
 
 <div id="search-container">
     <form id="uv-form">
-        <input id="uv-search-engine" value="https://duckduckgo.com/?q=${encodeURIComponent(input)}" type="hidden"/>
+        <input id="uv-search-engine" value="https://duckduckgo.com/?q=" type="hidden"/>
+        <label for="uv-address">Search:</label>
         <input id="uv-address" type="text" class="search-bar-home" placeholder="Type ://games for games" />
         <button id="search-button" type="submit">SEARCH <i class="fa-solid fa-magnifying-glass"></i></button>
     </form>
@@ -42,7 +43,9 @@
     }
 
     // Start cycling the placeholder text every 3 seconds
-    setInterval(cyclePlaceholder, 3000); // Change every 3 seconds
+    window.addEventListener('DOMContentLoaded', (event) => {
+        setInterval(cyclePlaceholder, 3000); // Change every 3 seconds
+    });
 
     // Function to handle form submission and redirects
     function submitSearch(event) {
@@ -61,9 +64,11 @@
             window.location.href = "https://yourmovies.com"; // Replace with the actual movies URL
         } else {
             // If it doesn't match any custom terms, perform a regular search
-            const query = encodeURIComponent(input);
+            const query = encodeURIComponent(input);  // Encode the search query
             const searchEngineUrl = document.getElementById("uv-search-engine").value;
-            window.location.href = searchEngineUrl.replace('${encodeURIComponent(input)}', query); // Perform the search using DuckDuckGo
+            
+            // Properly concatenate the URL with the query
+            window.location.href = searchEngineUrl + query; // Perform the search using DuckDuckGo
         }
     }
 
@@ -76,50 +81,41 @@
             submitSearch(event);
         }
     });
+
+    // Random phrases for the dynamic paragraph
+    const phrases = [
+        "us5 when",
+        "credits to brunys for the proxy stuff",
+        "idk",
+        "there is a nuclear bomb heading for your location. please seek shelter immediately",
+    ];
+
+    const paragraph = document.getElementById('dynamicParagraph');
+
+    function changeText() {
+        const randomPhrase = phrases[Math.floor(Math.random() * phrases.length)];
+        paragraph.textContent = randomPhrase;
+    }
+
+    paragraph.addEventListener('click', changeText);
+    window.onload = changeText;
 </script>
 
+<script src="/storage/js/background.js"></script>
 
-</div>
-        
-        <div class="desc left-margin">
-            <p id="uv-error"></p>
-            <pre id="uv-error-code"></pre>
-        </div>
-    </div>
-
-    <script src="/static/uv/uv.bundle.js" defer></script>
-    <script src="/static/uv/uv.config.js" defer></script>
-    <script src="/static/register-sw.js" defer></script>
-    <script src="/static/search.js" defer></script>
-    <script src="/static/index.js" defer></script>
-
-    <script>
-        const phrases = [
-            "us5 when",
-            "credits to brunys for the proxy stuff",
-            "idk",
-            "there is a nuclear bomb heading for your location. please seek shelter immediately",
-        ];
-
-        const paragraph = document.getElementById('dynamicParagraph');
-
-        function changeText() {
-            const randomPhrase = phrases[Math.floor(Math.random() * phrases.length)];
-            paragraph.textContent = randomPhrase;
+<script>
+    async function regsw() {
+        try {
+            await navigator.serviceWorker.register("/static/uv-sw.js", {
+                scope: "/static/",
+            });
+        } catch (error) {
+            console.error("Service Worker registration failed:", error);
         }
-
-        paragraph.addEventListener('click', changeText);
-        window.onload = changeText;
-    </script>
-    <script type="text/javascript" src="/storage/js/background.js"></script>
-    <script>
-    async function regsw(){
-        await navigator.serviceWorker.register("/static/uv-sw.js", {
-            scope: "/static/",
-        });
     }
 
     regsw();
-    </script>
+</script>
+
 </body>
 </html>
