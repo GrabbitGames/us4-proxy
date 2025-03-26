@@ -1,258 +1,190 @@
-/* Global reset for all elements */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Comfortaa', sans-serif;
-  font-weight: bold;
-}
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Comfortaa', sans-serif;
+        font-weight: bold;
+      }
 
-body,
-html {
-  height: 100%;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  background-color: black;
-}
+      body,
+      html {
+        height: 100%;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        background-color: black;
+      }
 
-/* Tabs Styles */
-.tabs {
-  display: flex;
-  align-items: center;
-  background: rgba(0, 0, 0, 0.3);
-  backdrop-filter: blur(10px);
-  padding: 2px 5px;
-  width: 85%;
-  position: fixed;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 1200;
-  border-radius: 10px 10px 0 0;
-  justify-content: flex-start;
-  overflow: hidden;
-  max-height: 40px;
-  border-bottom: 2px solid rgba(255, 255, 255, 0.3);
-  transition: transform 0.3s ease-in-out;
-}
+      .tabs {
+        display: flex;
+        align-items: center;
+        background: rgba(0, 0, 0, 0.3);
+        backdrop-filter: blur(10px);
+        padding: 2px 5px;
+        width: 85%;
+        position: fixed;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 1200;
+        border-radius: 10px 10px 0 0;
+        justify-content: flex-start;
+        overflow: hidden;
+        max-height: 40px;
+        border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+        transition: transform 0.3s ease-in-out;
+      }
 
-.tab {
-  display: flex;
-  align-items: center;
-  padding: 3px 10px;
-  color: white;
-  cursor: pointer;
-  background-color: rgba(255, 255, 255, 0.1);
-  border-right: 2px solid rgba(255, 255, 255, 0.3);
-  transition: background-color 0.3s;
-  flex-shrink: 0;
-  min-width: 100px;
-  max-width: 200px;
-  overflow: hidden;
-  border-radius: 5px;
-  text-overflow: ellipsis;
-}
+      .tab {
+        display: flex;
+        align-items: center;
+        padding: 3px 10px;
+        color: white;
+        cursor: pointer;
+        background-color: rgba(255, 255, 255, 0.1);
+        border-right: 2px solid rgba(255, 255, 255, 0.3);
+        transition: background-color 0.3s;
+        flex-shrink: 0;
+        min-width: 100px;
+        max-width: 200px;
+        overflow: hidden;
+        border-radius: 5px;
+        text-overflow: ellipsis;
+      }
 
-/* Active and hover tab styles */
-.tab.active {
-  background-color: rgba(255, 255, 255, 0.2);
-  color: white;
-}
+      .tab.active {
+        background-color: rgba(255, 255, 255, 0.2);
+        color: white;
+      }
 
-.tab:hover {
-  background-color: rgba(255, 255, 255, 0.3);
-}
+      .tab:hover {
+        background-color: rgba(255, 255, 255, 0.3);
+      }
 
-.tab .close-button {
-  margin-left: 5px;
-  color: white;
-  cursor: pointer;
-  font-size: 14px;
-}
+      .tab .close-button {
+        margin-left: 5px;
+        color: white;
+        cursor: pointer;
+        font-size: 14px;
+      }
 
-.tab .close-button:hover {
-  color: white;
-}
+      .tab .close-button:hover {
+        color: white;
+      }
 
-/* Add tab button styles */
-.add-tab-button {
-  padding: 10px;
-  cursor: pointer;
-  background: rgba(255, 255, 255, 0.1);
-  color: white;
-  border: none;
-  outline: none;
-  font-size: 20px;
-  border-radius: 5px;
-  box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.5); /* Glow effect */
-}
+      .add-tab-button {
+        padding: 10px;
+        cursor: pointer;
+        background: rgba(255, 255, 255, 0.1);
+        color: white;
+        border: none;
+        outline: none;
+        font-size: 20px;
+        border-radius: 5px;
+      }
 
-/* Navbar Styles */
-.navbar {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  background: rgba(0, 0, 0, 0.3);
-  backdrop-filter: blur(10px);
-  padding: 10px 5%;
-  color: white;
-  border-radius: 0 0 10px 10px;
-  position: fixed;
-  top: 40px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 85%;
-  z-index: 1100;
-  transition: transform 0.3s ease-in-out;
-}
+      .navbar {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        background: rgba(0, 0, 0, 0.3);
+        backdrop-filter: blur(10px);
+        padding: 10px 5%;
+        color: white;
+        border-radius: 0 0 10px 10px;
+        position: fixed;
+        top: 40px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 85%;
+        z-index: 1100;
+        transition: transform 0.3s ease-in-out;
+      }
 
-.navbar-left {
-  display: flex;
-  gap: 10px;
-}
+      .navbar-left {
+        display: flex;
+        gap: 10px;
+      }
 
-.nav-btn {
-  text-decoration: none;
-  color: white;
-  font-size: 16px;
-  padding: 5px 10px;
-  border-radius: 5px;
-  background: rgba(255, 255, 255, 0.1);
-  border: none;
-  transition: background-color 0.3s, box-shadow 0.3s;
-}
+      .nav-btn {
+        text-decoration: none;
+        color: white;
+        font-size: 16px;
+        padding: 5px 10px;
+        border-radius: 5px;
+        background: rgba(255, 255, 255, 0.1);
+        border: none;
+        transition: background-color 0.3s;
+      }
 
-.nav-btn:hover {
-  background: rgba(255, 255, 255, 0.3);
-  box-shadow: 0 0 20px 5px rgba(255, 0, 255, 0.7); /* Purple glowing effect */
-}
+      .nav-btn:hover {
+        background: rgba(255, 255, 255, 0.3);
+      }
 
-.nav-btn:focus {
-  box-shadow: 0 0 30px 8px rgba(255, 0, 255, 0.9); /* Purple glow on focus */
-}
+      .search-bar-container {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        margin-left: 15px;
+      }
 
-.search-bar-container {
-  display: flex;
-  justify-content: center;
-  width: 100%;
-  position: fixed;
-  top: 80px; /* Positioned directly below the navbar */
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 1000;
-}
+      .search-bar {
+        flex-grow: 1;
+        max-width: 600px;
+        padding: 10px;
+        border-radius: 20px;
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        background: rgba(0, 0, 0, 0.3);
+        backdrop-filter: blur(10px);
+        color: white;
+        font-size: 16px;
+        outline: none;
+        text-align: center;
+      }
 
-.search-bar {
-  width: 60%;
-  max-width: 800px;
-  padding: 15px 25px;
-  border-radius: 30px;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  background: rgba(255, 255, 255, 0.1);
-  color: white;
-  font-size: 18px;
-  outline: none;
-  text-align: center;
-  transition: box-shadow 0.3s, background-color 0.3s ease;
-  box-shadow: 0 0 15px 2px rgba(255, 255, 255, 0.4);
-}
+      .search-bar::placeholder {
+        color: rgba(255, 255, 255, 0.7);
+      }
 
-.search-bar::placeholder {
-  color: rgba(255, 255, 255, 0.7);
-}
+      .search-bar:focus {
+        border-color: rgba(255, 255, 255, 0.5);
+        background: rgba(0, 0, 0, 0.5);
+      }
 
-.search-bar:hover {
-  background: rgba(255, 255, 255, 0.2);
-  box-shadow: 0 0 25px 4px rgba(255, 255, 255, 0.6); /* Glowing effect */
-}
+      .content-wrapper {
+        flex-grow: 1;
+        overflow: hidden;
+        position: relative;
+        height: 100%;
+      }
 
-.search-bar:focus {
-  border-color: rgba(255, 255, 255, 0.5);
-  background: rgba(0, 0, 0, 0.5);
-  box-shadow: 0 0 30px 5px rgba(255, 0, 255, 0.8); /* Purple glow on focus */
-}
+      iframe {
+        width: 100%;
+        height: 100%;
+        border: none;
+        display: none;
+      }
 
-.buttons-container {
-  position: fixed;
-  top: 150px; /* Place buttons below the search bar */
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 1000;
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-}
+      iframe.active {
+        display: block;
+      }
 
-/* Button styles */
-.nav-btn,
-.add-tab-button,
-.show-navbar-btn {
-  padding: 12px 20px;
-  font-size: 18px;
-  border-radius: 10px;
-  background-color: rgba(255, 255, 255, 0.1);
-  color: white;
-  border: none;
-  outline: none;
-  cursor: pointer;
-  transition: background-color 0.3s, box-shadow 0.3s, transform 0.2s ease-in-out;
-  box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.5); /* Glow effect */
-  text-shadow: 0 0 5px rgba(255, 255, 255, 0.7);
-}
+      .navbar.hidden,
+      .tabs.hidden {
+        transform: translateY(-200%);
+      }
 
-.nav-btn:hover,
-.add-tab-button:hover,
-.show-navbar-btn:hover {
-  background-color: rgba(255, 255, 255, 0.2);
-  box-shadow: 0 0 20px 5px rgba(255, 0, 255, 0.7); /* Purple and white glow on hover */
-  transform: scale(1.05); /* Slightly increase button size */
-}
+      .show-navbar-btn {
+        display: none;
+        padding: 10px;
+        background: rgba(255, 255, 255, 0.1);
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 20px;
+      }
 
-.nav-btn:focus,
-.add-tab-button:focus,
-.show-navbar-btn:focus {
-  background-color: rgba(255, 255, 255, 0.3);
-  box-shadow: 0 0 25px 8px rgba(255, 0, 255, 0.9); /* Stronger purple glow */
-  transform: scale(1.05);
-}
-
-.add-tab-button:active {
-  background-color: rgba(255, 255, 255, 0.3);
-  box-shadow: 0 0 30px 10px rgba(255, 0, 255, 1); /* Intense purple glow */
-  transform: scale(1.1);
-}
-
-.show-navbar-btn {
-  display: none;
-  background: rgba(255, 255, 255, 0.1);
-  color: white;
-  font-size: 20px;
-  padding: 12px 24px;
-  border-radius: 10px;
-  cursor: pointer;
-  box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.5);
-}
-
-.show-navbar-btn.active {
-  display: block;
-  background-color: rgba(255, 255, 255, 0.2);
-}
-
-.show-navbar-btn:hover {
-  box-shadow: 0 0 25px 8px rgba(255, 255, 255, 0.9);
-  transform: scale(1.05);
-}
-
-/* Mobile responsiveness for buttons */
-@media (max-width: 768px) {
-  .buttons-container {
-    flex-direction: column;
-    gap: 15px;
-  }
-
-  .search-bar {
-    width: 80%;
-    max-width: 600px;
-  }
-}
+      .show-navbar-btn.active {
+        display: block;
+      }
