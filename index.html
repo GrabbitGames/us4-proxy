@@ -41,6 +41,9 @@
         <button onclick="document.querySelector('.tab-iframe.active').contentWindow.location.reload()" class="nav-btn">
           <i class="fas fa-redo"></i>
         </button>
+        <div class="search-bar-container">
+        <input type="text" id="search-input" class="search-bar" placeholder="Search or enter a URL">
+      </div>
         <button onclick="inspect()" class="nav-btn">
           <i class="fa fa-code"></i>
         </button>
@@ -53,9 +56,6 @@
         <button onclick="toggleNavbar()" class="nav-btn" id="hide-navbar-btn">
           <i class="fa fa-chevron-up"></i>
         </button>
-      </div>
-      <div class="search-bar-container">
-        <input type="text" id="search-input" class="search-bar" placeholder="Search or enter a URL">
       </div>
     </div>
     <div class="show-navbar-btn" id="show-navbar-btn" onclick="toggleNavbar()">
