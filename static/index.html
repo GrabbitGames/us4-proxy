@@ -17,7 +17,7 @@
     <p id="dynamicParagraph">(TEXT)</p>
 
     <div id="search-container">
-    <form id="uv-form" onsubmit="submitSearch(event)">
+    <form id="uv-form">
         <input id="uv-search-engine" value="https://duckduckgo.com/?q=${encodeURIComponent(input)}" type="hidden"/>
         <input id="uv-address" type="text" class="search-bar-home" placeholder="Type ://games for games" />
         <button id="search-button" type="submit">SEARCH <i class="fa-solid fa-magnifying-glass"></i></button>
@@ -64,6 +64,9 @@
             window.location.href = "https://duckduckgo.com/?q=" + encodeURIComponent(input);
         }
     }
+
+    // Attach the submitSearch function to form submission event
+    document.getElementById("uv-form").addEventListener("submit", submitSearch);
 
     // Optional: Trigger the submitSearch function when the Enter key is pressed (better usability)
     document.getElementById("uv-address").addEventListener("keydown", function(event) {
