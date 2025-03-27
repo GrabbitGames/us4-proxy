@@ -16,7 +16,7 @@
         #search-button {
             width: 200px; /* Same size as the shortcuts */
             height: 50px; /* Same height as the shortcuts */
-            border-radius: 12px; /* Rounded edges */
+            border-radius: 24px; /* Rounded edges like Google */
             display: flex;
             align-items: center;
             justify-content: center;
@@ -31,19 +31,20 @@
             background-color: rgba(0, 0, 0, 0.1);
         }
 
-        /* Styles for the shortcut container */
+        /* Styles for the shortcut container (outside search bar) */
         .shortcut-container {
             display: flex;
             justify-content: center;
             gap: 15px;
             margin-top: 30px;
+            flex-wrap: wrap;
         }
 
-        /* Shortcut style */
+        /* Shortcut style (same as Google button) */
         .shortcut {
-            width: 60px; /* Square size */
-            height: 60px; /* Square size */
-            border-radius: 12px; /* Rounded edges */
+            width: 200px; /* Same width as Google button */
+            height: 50px; /* Same height as Google button */
+            border-radius: 24px; /* Rounded edges like Google */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -51,25 +52,36 @@
             background-color: #f8f8f8;
             transition: background-color 0.3s ease;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            font-size: 16px;
+            border: 1px solid #ccc;
         }
 
-        /* Hover effect */
+        /* Hover effect for the shortcuts */
         .shortcut:hover {
             background-color: rgba(0, 0, 0, 0.1);
         }
 
         /* Logo size */
         .shortcut img {
-            max-width: 30px;
-            max-height: 30px;
+            max-width: 24px;
+            max-height: 24px;
+            margin-right: 10px; /* Space between the logo and text */
         }
 
-        /* Dynamic Paragraph Style */
-        #dynamicParagraph {
-            text-align: center;
-            font-size: 18px;
-            font-style: italic;
-            margin-top: 20px;
+        /* Text style for the shortcut button */
+        .shortcut-text {
+            font-size: 16px;
+        }
+
+        /* Full-screen iframe */
+        .fullpage-iframe {
+            width: 100%;
+            height: 100vh; /* Full height of the viewport */
+            border: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: -1; /* Ensure iframe stays in the background */
         }
     </style>
 </head>
@@ -91,31 +103,60 @@
     </form>
 </div>
 
-<!-- Shortcuts with Logos -->
+<!-- App Shortcuts (Outside Search Bar) -->
 <div class="shortcut-container">
     <!-- GeForce -->
     <div class="shortcut" onclick="openEmbedPage('https://www.nvidia.com/en-us/geforce/')">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Nvidia_logo.svg/2560px-Nvidia_logo.svg.png" alt="GeForce Logo">
+        <img src="https://www.nvidia.com/content/dam/en-zz/Solutions/geforce/brand-assets/GeForce_logo_white.png" alt="GeForce Logo">
+        <span class="shortcut-text">GeForce</span>
     </div>
 
     <!-- Instagram -->
     <div class="shortcut" onclick="openEmbedPage('https://www.instagram.com/')">
         <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram Logo">
+        <span class="shortcut-text">Instagram</span>
     </div>
 
     <!-- Twitch -->
     <div class="shortcut" onclick="openEmbedPage('https://www.twitch.tv/')">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Twitch_icon.svg/1200px-Twitch_icon.svg.png" alt="Twitch Logo">
+        <img src="https://static.twitchcdn.net/assets/favicon-a26a431b97960a990635.svg" alt="Twitch Logo">
+        <span class="shortcut-text">Twitch</span>
     </div>
 
     <!-- Roblox -->
     <div class="shortcut" onclick="openEmbedPage('https://www.roblox.com/')">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/2/26/Roblox_Logo_2017.png" alt="Roblox Logo">
+        <img src="https://www.roblox.com/favicon.ico" alt="Roblox Logo">
+        <span class="shortcut-text">Roblox</span>
     </div>
 
     <!-- YouTube -->
     <div class="shortcut" onclick="openEmbedPage('https://www.youtube.com/')">
         <img src="https://upload.wikimedia.org/wikipedia/commons/4/42/YouTube_icon_%282013-2017%29.png" alt="YouTube Logo">
+        <span class="shortcut-text">YouTube</span>
+    </div>
+
+    <!-- Now.gg -->
+    <div class="shortcut" onclick="openEmbedPage('https://now.gg/')">
+        <img src="https://now.gg/images/nowgg-logo.svg" alt="Now.gg Logo">
+        <span class="shortcut-text">Now.gg</span>
+    </div>
+
+    <!-- Facebook -->
+    <div class="shortcut" onclick="openEmbedPage('https://www.facebook.com/')">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook Logo">
+        <span class="shortcut-text">Facebook</span>
+    </div>
+
+    <!-- Twitter -->
+    <div class="shortcut" onclick="openEmbedPage('https://twitter.com/')">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/60/Twitter_Logo_2021.svg" alt="Twitter Logo">
+        <span class="shortcut-text">Twitter</span>
+    </div>
+
+    <!-- Steam -->
+    <div class="shortcut" onclick="openEmbedPage('https://store.steampowered.com/')">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/5/56/Steam_icon_logo.svg" alt="Steam Logo">
+        <span class="shortcut-text">Steam</span>
     </div>
 </div>
 
@@ -127,14 +168,18 @@
 <script src="/static/index.js" defer></script>
 
 <script>
-    // Function to open the selected website in an iframe
+    // Function to open the selected website in an iframe and make it full-page
     function openEmbedPage(url) {
+        // Remove existing iframe if there's one
+        const existingIframe = document.querySelector('.fullpage-iframe');
+        if (existingIframe) {
+            existingIframe.remove();
+        }
+
         const iframe = document.createElement('iframe');
         iframe.src = `/static/embed#${url}`;
-        iframe.style.width = '100%';
-        iframe.style.height = '100vh';
-        iframe.style.border = 'none';
-        document.body.appendChild(iframe);
+        iframe.className = 'fullpage-iframe'; // Apply full-page styling
+        document.body.appendChild(iframe); // Append the iframe to the body
     }
 
     // Handle search logic, including URL handling with "://"
