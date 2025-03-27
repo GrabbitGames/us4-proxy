@@ -1,0 +1,200 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Tab</title>
+    <link rel="stylesheet" href="../storage/css/evenmorestyles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../storage/css/static.css">
+    <style>
+        /* Style for the search bar and button */
+        #search-container {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        #search-button {
+            width: 200px; /* Same size as the shortcuts */
+            height: 50px; /* Same height as the shortcuts */
+            border-radius: 12px; /* Rounded edges */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            background-color: #f8f8f8;
+            border: 1px solid #ccc;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        #search-button:hover {
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+
+        /* Styles for the shortcut container */
+        .shortcut-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        /* Shortcut style */
+        .shortcut {
+            width: 60px; /* Square size */
+            height: 60px; /* Square size */
+            border-radius: 12px; /* Rounded edges */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            background-color: #f8f8f8;
+            transition: background-color 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Hover effect */
+        .shortcut:hover {
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+
+        /* Logo size */
+        .shortcut img {
+            max-width: 30px;
+            max-height: 30px;
+        }
+
+        /* Dynamic Paragraph Style */
+        #dynamicParagraph {
+            text-align: center;
+            font-size: 18px;
+            font-style: italic;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<script src="/storage/js/particles.js"></script>
+<script src="/storage/js/app.js"></script>
+<div id="particles-js"></div>
+
+<h1>Proxy</h1>
+<p id="dynamicParagraph">(TEXT)</p>
+
+<!-- Search Bar Form -->
+<div id="search-container">
+    <form id="uv-form" onsubmit="submitSearch(event)">
+        <input id="uv-search-engine" value="https://duckduckgo.com/?q=%s" type="hidden"/>
+        <input id="uv-address" type="text" class="search-bar-home" placeholder="Search or enter a URL" />
+        <button id="search-button" type="submit">SEARCH <i class="fa-solid fa-magnifying-glass"></i></button>
+    </form>
+</div>
+
+<!-- Shortcuts with Logos -->
+<div class="shortcut-container">
+    <!-- GeForce -->
+    <div class="shortcut" onclick="openEmbedPage('https://www.nvidia.com/en-us/geforce/')">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Nvidia_logo.svg/2560px-Nvidia_logo.svg.png" alt="GeForce Logo">
+    </div>
+
+    <!-- Instagram -->
+    <div class="shortcut" onclick="openEmbedPage('https://www.instagram.com/')">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram Logo">
+    </div>
+
+    <!-- Twitch -->
+    <div class="shortcut" onclick="openEmbedPage('https://www.twitch.tv/')">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Twitch_icon.svg/1200px-Twitch_icon.svg.png" alt="Twitch Logo">
+    </div>
+
+    <!-- Roblox -->
+    <div class="shortcut" onclick="openEmbedPage('https://www.roblox.com/')">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/2/26/Roblox_Logo_2017.png" alt="Roblox Logo">
+    </div>
+
+    <!-- YouTube -->
+    <div class="shortcut" onclick="openEmbedPage('https://www.youtube.com/')">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/4/42/YouTube_icon_%282013-2017%29.png" alt="YouTube Logo">
+    </div>
+</div>
+
+<!-- Scripts -->
+<script src="/static/uv/uv.bundle.js" defer></script>
+<script src="/static/uv/uv.config.js" defer></script>
+<script src="/static/register-sw.js" defer></script>
+<script src="/static/search.js" defer></script>
+<script src="/static/index.js" defer></script>
+
+<script>
+    // Function to open the selected website in an iframe
+    function openEmbedPage(url) {
+        const iframe = document.createElement('iframe');
+        iframe.src = `/static/embed#${url}`;
+        iframe.style.width = '100%';
+        iframe.style.height = '100vh';
+        iframe.style.border = 'none';
+        document.body.appendChild(iframe);
+    }
+
+    // Handle search logic, including URL handling with "://"
+    function submitSearch(event) {
+        event.preventDefault(); // Prevent form submission
+
+        const input = document.getElementById('uv-address').value.trim();
+        const searchEngineUrl = document.getElementById('uv-search-engine').value;
+
+        // Check if the input starts with '://', indicating a custom prefix
+        if (input.startsWith('://')) {
+            if (input === '://games') {
+                window.location.href = "https://yourgamespage.com"; // Replace with actual games page URL
+            } else if (input === '://apps') {
+                window.location.href = "https://yourapps.com"; // Replace with actual apps page URL
+            } else if (input === '://settings') {
+                window.location.href = "https://yoursettings.com"; // Replace with actual settings page URL
+            } else if (input === '://movies') {
+                window.location.href = "https://yourmovies.com"; // Replace with actual movies page URL
+            } else {
+                // If no custom prefix is found, show error or redirect to a default page
+                alert("Unknown prefix! Please try again.");
+            }
+        } else {
+            // Otherwise, perform a search using DuckDuckGo
+            const query = encodeURIComponent(input);
+            const url = searchEngineUrl.replace('%s', query); // DuckDuckGo search URL
+            window.location.href = url; // Perform the search using DuckDuckGo
+        }
+    }
+
+    // Random phrases for dynamic paragraph
+    const phrases = [
+        "us5 when",
+        "credits to brunys for the proxy stuff",
+        "idk",
+        "there is a nuclear bomb heading for your location. please seek shelter immediately",
+    ];
+
+    const paragraph = document.getElementById('dynamicParagraph');
+
+    function changeText() {
+        const randomPhrase = phrases[Math.floor(Math.random() * phrases.length)];
+        paragraph.textContent = randomPhrase;
+    }
+
+    paragraph.addEventListener('click', changeText);
+    window.onload = changeText;
+</script>
+
+<script type="text/javascript" src="/storage/js/background.js"></script>
+<script>
+    async function regsw() {
+        await navigator.serviceWorker.register("/static/uv-sw.js", {
+            scope: "/static/",
+        });
+    }
+
+    regsw();
+</script>
+
+</body>
+</html>
