@@ -362,4 +362,20 @@
 </script>
 
 </body>
+    <script>function submitSearch(event) {
+    event.preventDefault();
+    const searchQuery = document.getElementById('uv-address').value.trim();
+    
+    // Check if it's a valid URL, if not, assume it's a search query
+    const urlPattern = /^(https?:\/\/)?([\w\-]+(\.[\w\-]+)+\.?)(\/[^\s]*)?$/;
+    if (urlPattern.test(searchQuery)) {
+        // If it's a valid URL, use it directly
+        openEmbedPage(searchQuery);
+    } else {
+        // If it's a search query, append it to a search engine URL (like DuckDuckGo or Google)
+        const searchUrl = `https://duckduckgo.com/?q=${encodeURIComponent(searchQuery)}`;
+        openEmbedPage(searchUrl);
+    }
+}
+</script>
 </html>
