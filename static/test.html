@@ -17,6 +17,7 @@
         #search-container {
             margin-top: 50px;
             text-align: center;
+            transition: opacity 0.3s ease;
         }
 
         #search-button {
@@ -66,15 +67,16 @@
         }
 
         .shortcut img {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            border-radius: 8px;
             object-fit: cover;
         }
 
         .shortcut-text {
             margin-top: 10px;
             font-size: 14px;
+            font-weight: bold;
         }
 
         .fullpage-iframe {
@@ -87,6 +89,31 @@
             z-index: -1;
         }
 
+        #custom-shortcut-form {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        #custom-shortcut-form input {
+            margin: 5px;
+            padding: 8px;
+            font-size: 14px;
+            width: 250px;
+        }
+
+        #custom-shortcut-form button {
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+        }
+
+        #custom-shortcut-form button:hover {
+            background-color: #45a049;
+        }
     </style>
 </head>
 <body>
@@ -107,73 +134,62 @@
 </div>
 
 <div class="shortcut-container" id="shortcut-container">
-    <!-- Shortcuts will be injected dynamically by JavaScript -->
+    <!-- Shortcuts with logos and titles -->
+    <div class="shortcut" onclick="openEmbedPage('https://now.gg/')">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Roblox_logo_2017.png/500px-Roblox_logo_2017.png" alt="Now.gg" />
+        <div class="shortcut-text">Now.gg</div>
+    </div>
+
+    <div class="shortcut" onclick="openEmbedPage('https://www.roblox.com/')">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Roblox_logo_2017.png/500px-Roblox_logo_2017.png" alt="Roblox" />
+        <div class="shortcut-text">Roblox</div>
+    </div>
+
+    <div class="shortcut" onclick="openEmbedPage('https://www.youtube.com/')">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/YouTube_icon_%282013-2017%29.png/500px-YouTube_icon_%282013-2017%29.png" alt="YouTube" />
+        <div class="shortcut-text">YouTube</div>
+    </div>
+
+    <div class="shortcut" onclick="openEmbedPage('https://www.twitch.tv/')">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Twitch_Logo_2011.svg/800px-Twitch_Logo_2011.svg.png" alt="Twitch" />
+        <div class="shortcut-text">Twitch</div>
+    </div>
+
+    <div class="shortcut" onclick="openEmbedPage('https://www.instagram.com/')">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Instagram_logo_2022.svg/500px-Instagram_logo_2022.svg.png" alt="Instagram" />
+        <div class="shortcut-text">Instagram</div>
+    </div>
+
+    <div class="shortcut" onclick="openEmbedPage('https://deadshot.io/')">
+        <img src="https://www.deadshot.io/assets/images/deadshot-logo.png" alt="Deadshot.io" />
+        <div class="shortcut-text">Deadshot.io</div>
+    </div>
+
+    <div class="shortcut" onclick="openEmbedPage('https://www.netflix.com/')">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Netflix_logo_2015.svg/500px-Netflix_logo_2015.svg.png" alt="Netflix" />
+        <div class="shortcut-text">Netflix</div>
+    </div>
+</div>
+
+<div id="custom-shortcut-form">
+    <h3>Add a Custom Shortcut</h3>
+    <input type="text" id="custom-image-url" placeholder="Image URL" />
+    <input type="text" id="custom-link-url" placeholder="Link URL" />
+    <button onclick="addCustomShortcut()">Add Shortcut</button>
 </div>
 
 <iframe class="fullpage-iframe" id="embed-frame" src=""></iframe>
 
 <script>
-    const shortcuts = [
-        { name: "GeForce", url: "https://www.nvidia.com/en-us/geforce/" },
-        { name: "Roblox", url: "https://www.roblox.com/" },
-        { name: "Instagram", url: "https://www.instagram.com/" },
-        { name: "Twitch", url: "https://www.twitch.tv/" },
-        { name: "YouTube", url: "https://www.youtube.com/" },
-        { name: "Now.gg", url: "https://now.gg/" },
-        { name: "Netflix", url: "https://www.netflix.com/" },
-        { name: "Spotify", url: "https://www.spotify.com/" }
-    ];
-
-    // Function to fetch the favicon of a domain dynamically
-    async function fetchFavicon(domainUrl) {
-        try {
-            // Fetch the HTML content of the page
-            const response = await fetch(domainUrl, { method: 'GET', mode: 'no-cors' });
-            const text = await response.text();
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(text, "text/html");
-            const faviconLink = doc.querySelector("link[rel='icon'], link[rel='shortcut icon']");
-
-            // If a favicon exists, return its href
-            if (faviconLink) {
-                return faviconLink.href;
-            }
-
-            // Fallback: if no favicon link is found, return the default favicon path
-            return `${new URL(domainUrl).origin}/favicon.ico`;
-        } catch (error) {
-            console.error("Error fetching favicon:", error);
-            return `${new URL(domainUrl).origin}/favicon.ico`; // Return a fallback favicon if the fetch fails
-        }
-    }
-
-    // Function to render shortcuts with dynamic favicons
-    async function renderShortcuts() {
-        const container = document.getElementById("shortcut-container");
-        for (const shortcut of shortcuts) {
-            const faviconUrl = await fetchFavicon(shortcut.url);
-
-            const shortcutElement = document.createElement("div");
-            shortcutElement.classList.add("shortcut");
-            shortcutElement.onclick = () => openEmbedPage(shortcut.url);
-
-            const img = document.createElement("img");
-            img.classList.add("favicon");
-            img.src = faviconUrl; // Use the fetched favicon URL
-            img.alt = `${shortcut.name} Logo`;
-
-            const text = document.createElement("div");
-            text.classList.add("shortcut-text");
-            text.textContent = shortcut.name;
-
-            shortcutElement.appendChild(img);
-            shortcutElement.appendChild(text);
-            container.appendChild(shortcutElement);
-        }
-    }
-
     // Function to handle opening the URLs in the embed iframe
     function openEmbedPage(url) {
+        // Hide everything except the iframe
+        document.body.style.overflow = 'hidden'; // Disable scrolling
+        document.getElementById('search-container').style.display = 'none'; // Hide search bar
+        document.getElementById('shortcut-container').style.display = 'none'; // Hide shortcuts
+        document.getElementById('embed-frame').style.display = 'block'; // Show iframe
+
+        // Set iframe src to open the URL
         document.getElementById('embed-frame').src = `/static/embed#${url}`;
     }
 
@@ -187,9 +203,32 @@
         }
     }
 
-    // Call renderShortcuts when the page loads
-    window.onload = renderShortcuts;
+    // Function to go back to the main screen (showing search bar and shortcuts)
+    function goBack() {
+        // Reset the body and content display
+        document.body.style.overflow = 'auto'; // Re-enable scrolling
+        document.getElementById('search-container').style.display = 'block'; // Show search bar
+        document.getElementById('shortcut-container').style.display = 'block'; // Show shortcuts
+        document.getElementById('embed-frame').style.display = 'none'; // Hide iframe
+    }
+
+    // Adding a back button to go back to the main screen (search bar + shortcuts)
+    window.onload = function() {
+        const iframe = document.getElementById('embed-frame');
+        iframe.addEventListener('load', function () {
+            const backButton = document.createElement('button');
+            backButton.textContent = "Back to Search";
+            backButton.style.position = "absolute";
+            backButton.style.top = "20px";
+            backButton.style.left = "20px";
+            backButton.style.zIndex = "1000";
+            backButton.onclick = goBack;
+
+            iframe.contentWindow.document.body.appendChild(backButton);
+        });
+    };
 </script>
+
 
 </body>
 </html>
