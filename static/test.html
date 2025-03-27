@@ -1,0 +1,507 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Tab</title>
+    <link rel="stylesheet" href="../storage/css/evenmorestyles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../storage/css/static.css">
+</head>
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.1/gsap.min.js"></script>
+    <script>
+        const { TweenMax, _ } = window;
+
+        const randomInRange = (max, min) =>
+            Math.floor(Math.random() * (max - min + 1)) + min;
+
+        const ACTIVE_PROBABILITY = 0;
+        const BASE_SIZE = 1;
+        const VELOCITY_INC = 1.01;
+        const VELOCITY_INIT_INC = 1.025;
+        const JUMP_VELOCITY_INC = 1.25;
+        const JUMP_SIZE_INC = 1.15;
+        const SIZE_INC = 1.01;
+        const RAD = Math.PI / 180;
+        const WARP_COLORS = [
+            [197, 239, 247],
+            [25, 181, 254],
+            [77, 5, 232],
+            [165, 55, 253],
+            [255, 255, 255],
+        ];
+
+        class Star {
+            STATE = {
+                alpha: Math.random(),
+                angle: randomInRange(0, 360) * RAD,
+            };
+            reset = () => {
+                const angle = randomInRange(0, 360) * (Math.PI / 180);
+                const vX = Math.cos(angle);
+                const vY = Math.sin(angle);
+                const travelled =
+                    Math.random() > 0.5
+                        ? Math.random() * Math.max(window.innerWidth, window.innerHeight) + (Math.random() * (window.innerWidth * 0.24))
+                        : Math.random() * (window.innerWidth * 0.25);
+                this.STATE = {
+                    ...this.STATE,
+                    iX: undefined,
+                    iY: undefined,
+                    active: travelled ? true : false,
+                    x: Math.floor(vX * travelled) + window.innerWidth / 2,
+                    vX,
+                    y: Math.floor(vY * travelled) + window.innerHeight / 2,
+                    vY,
+                    size: BASE_SIZE,
+                };
+            };
+            constructor() {
+                this.reset();
+            }
+        }
+
+        const generateStarPool = size => new Array(size).fill().map(() => new Star());
+
+        class JumpToHyperspace {
+            STATE = {
+                stars: generateStarPool(300),
+                bgAlpha: 0,
+                sizeInc: SIZE_INC,
+                velocity: VELOCITY_INC,
+                startTime: Date.now(),
+            };
+            canvas = document.getElementById('hyperspaceCanvas');
+            context = this.canvas.getContext('2d');
+            constructor() {
+                this.bind();
+                this.setup();
+                this.render();
+            }
+            render = () => {
+                const { STATE: { bgAlpha, velocity, sizeInc, stars }, context } = this;
+                context.clearRect(0, 0, window.innerWidth, window.innerHeight);
+                if (bgAlpha > 0) {
+                    context.fillStyle = `rgba(31, 58, 157, ${bgAlpha})`;
+                    context.fillRect(0, 0, window.innerWidth, window.innerHeight);
+                }
+                const nonActive = stars.filter(s => !s.STATE.active);
+                if (nonActive.length > 0) {
+                    nonActive[0].STATE.active = true;
+                }
+                for (const star of stars.filter(s => s.STATE.active)) {
+                    const { active, x, y, iX, iY, size, vX, vY } = star.STATE;
+                    if (
+                        ((iX || x) < 0 ||
+                            (iX || x) > window.innerWidth ||
+                            (iY || y) < 0 ||
+                            (iY || y) > window.innerHeight) &&
+                        active
+                    ) {
+                        star.reset(true);
+                    } else if (active) {
+                        const newX = x + vX;
+                        const newY = y + vY;
+                        star.STATE = {
+                            ...star.STATE,
+                            x: newX,
+                            vX: star.STATE.vX * velocity,
+                            y: newY,
+                            vY: star.STATE.vY * velocity,
+                            size: size * sizeInc,
+                        };
+                        let color = `rgba(255, 255, 255, ${star.STATE.alpha})`;
+                        context.strokeStyle = color;
+                        context.lineWidth = size;
+                        context.beginPath();
+                        context.moveTo(star.STATE.iX || x, star.STATE.iY || y);
+                        context.lineTo(star.STATE.x, star.STATE.y);
+                        context.stroke();
+                    }
+                }
+                requestAnimationFrame(this.render);
+            };
+
+            setup() {
+                this.context.lineCap = 'round';
+                this.canvas.height = window.innerHeight;
+                this.canvas.width = window.innerWidth;
+            }
+
+            bind() {
+                this.canvas.addEventListener('mousedown', this.initiate);
+                this.canvas.addEventListener('touchstart', this.initiate);
+            }
+
+            initiate() {
+                this.STATE.bgAlpha = 0.5;
+            }
+        }
+
+        window.myJump = new JumpToHyperspace();
+    </script>
+    <style>
+        canvas {
+            display: block;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        
+}</style>
+        <style>
+        /* Global Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Comfortaa', sans-serif;
+            font-weight: bold;
+        }
+
+        /* Body */
+        body {
+            background-color: #111;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        /* Search Container */
+        #search-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        /* Search Bar */
+        #uv-address {
+            padding: 15px 20px;
+            border-radius: 30px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            background-color: rgba(0, 0, 0, 0.4);
+            color: white;
+            font-size: 18px;
+            width: 300px;
+            transition: all 0.3s ease;
+            outline: none;
+            box-shadow: 0 0 15px rgba(0, 0, 255, 0.2); /* Blue Glow */
+        }
+
+        /* Search Bar Focused */
+        #uv-address:focus {
+            border-color: rgba(255, 255, 255, 0.5);
+            background-color: rgba(0, 0, 0, 0.6);
+            box-shadow: 0 0 25px rgba(213, 0, 249, 0.8); /* Purple Glow */
+        }
+
+        /* Placeholder Styling */
+        #uv-address::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* Search Icon Inside the Input */
+        #uv-address::before {
+            content: '\f002'; /* FontAwesome search icon */
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+            position: absolute;
+            top: 50%;
+            left: 15px;
+            transform: translateY(-50%);
+            color: rgba(255, 255, 255, 0.6);
+            transition: color 0.3s ease;
+        }
+
+        #uv-address:focus::before {
+            color: #D500F9; /* Purple Glow when focused */
+        }
+
+        /* Hover Effects */
+        #uv-address:hover {
+            border-color: rgba(255, 255, 255, 0.5);
+            background-color: rgba(0, 0, 0, 0.5);
+            box-shadow: 0 0 20px rgba(213, 0, 249, 0.7);
+        }
+
+        /* Submit Button (Removed) */
+        #search-button {
+            display: none;
+        }
+
+        /* Adding a Glowing Effect to the Container */
+        #search-container:hover #uv-address {
+            box-shadow: 0 0 20px rgba(213, 0, 249, 0.7); /* Glowing Effect */
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* Optional Styling: Adding Floating Effect on Hover */
+        #uv-address:hover {
+            transform: scale(1.05);
+        }
+    </style>
+
+  <canvas id="hyperspaceCanvas"></canvas>
+  <script src="/storage/js/app.js"></script>
+
+
+    <h1>Proxy</h1>
+    <p id="dynamicParagraph">(TEXT)</p>
+
+    <div id="search-container">
+        <form id="uv-form">
+            <input id="uv-search-engine" value="https://duckduckgo.com/?q=%s" type="hidden"/>
+            <input id="uv-address" type="text" class="search-bar-home" placeholder="Search or enter a URL" />
+            <button id="search-button" onclick="submitSearch()">SEARCH <i class="fa-solid fa-magnifying-glass"></i></button>
+        </form>
+<div class="shortcuts">
+      <button onclick="openPage('https://google.com/')" class="shortcut" title="shortcut">
+        <img src="./assets/images/google.ico" alt="" class="shortcut-image">
+        <p>Google</p>
+      </button>
+      <button onclick="openPage('https://youtube.com/')" class="shortcut" title="shortcut">
+        <img src="./assets/images/youtube.png" alt="" class="shortcut-image">
+        <p>YouTube</p>
+      </button>
+      <button onclick="openPage('https://twitter.com/')" class="shortcut" title="shortcut">
+        <img src="./assets/images/twitter.png" alt="" class="shortcut-image">
+        <p>Twitter</p>
+      </button>
+      <button onclick="openPage('https://gemini.google.com/')" class="shortcut" title="shortcut">
+        <img src="./assets/images/gemini.png" alt="" class="shortcut-image">
+        <p>Gemini</p>
+      </button>
+      <button onclick="openPage('https://discord.com/')" class="shortcut" title="shortcut">
+        <img src="./assets/images/discord.ico" alt="" class="shortcut-image">
+        <p>Discord</p>
+      </button>
+      <button onclick="openPage('https://play.geforcenow.com/')" class="shortcut" title="shortcut">
+        <img src="./assets/images/geforcenow.webp" alt="" class="shortcut-image">
+        <p>GeForce Now</p>
+      </button>
+      <button onclick="openPage('https://crazygames.com/')" class="shortcut" title="shortcut">
+        <img src="./assets/images/crazygames.avif" alt="" class="shortcut-image">
+        <p>CrazyGames</p>
+      </button>
+      <button onclick="openPage('https://shuttle.lol/')" class="shortcut" title="shortcut">
+        <img src="./assets/images/nowgg.ico" alt="" class="shortcut-image">
+        <p>Now.gg</p>
+      </button>
+      <button onclick="openPage('https://netflix.com/')" class="shortcut" title="shortcut">
+        <img src="./assets/images/netflix.png" alt="" class="shortcut-image">
+        <p>Netflix</p>
+      </button>
+      <button onclick="openPage('https://character.ai/')" class="shortcut" title="shortcut">
+        <img src="./assets/images/characterai.jpg" alt="" class="shortcut-image">
+        <p>c.ai</p>
+      </button>
+      <button onclick="openPage('https://github.com/')" class="shortcut" title="shortcut">
+        <img src="./assets/images/github.svg" alt="" class="shortcut-image">
+        <p>GitHub</p>
+      </button>
+      <button onclick="handleAddShortcut()" class="shortcut" title="add-shortcut">
+        <i class="fa-solid fa-square-plus" style="font-size: 30px; color: var(--text);"></i>
+        <p>Add Shortcut</p>
+      </button>
+    </div>
+  </div>
+  <style>.shortcuts {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  margin: 25px 25%;
+}
+
+.shortcut {
+  padding: 15px 20px;
+  border-radius: 10px;
+  border: none;
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  transition: 250ms;
+  cursor: pointer;
+  width: 90px
+}
+
+.shortcut:hover {
+  background: var(--background2);
+}
+
+.shortcut:active {
+  transform: scale(0.9);
+}
+
+.shortcut p {
+  color: var(--text);
+  font-size: 14px;
+}
+
+.shortcut-image {
+  width: 30px;
+  height: 30px;
+  border-radius: 5px;
+}</style>
+        <div class="desc left-margin">
+            <p id="uv-error"></p>
+            <pre id="uv-error-code"></pre>
+        </div>
+    </div>
+
+    <script src="/static/uv/uv.bundle.js" defer></script>
+    <script src="/static/uv/uv.config.js" defer></script>
+    <script src="/static/register-sw.js" defer></script>
+    <script src="/static/search.js" defer></script>
+    <script src="/static/index.js" defer></script>
+
+    <script>
+        const phrases = [
+            "us5 when",
+            "credits to brunys for the proxy stuff",
+            "idk",
+            "there is a nuclear bomb heading for your location. please seek shelter immediately",
+        ];
+
+        const paragraph = document.getElementById('dynamicParagraph');
+
+        function changeText() {
+            const randomPhrase = phrases[Math.floor(Math.random() * phrases.length)];
+            paragraph.textContent = randomPhrase;
+        }
+
+        paragraph.addEventListener('click', changeText);
+        window.onload = changeText;
+    </script>
+    <script type="text/javascript" src="/storage/js/background.js"></script>
+    <script>
+    async function regsw(){
+        await navigator.serviceWorker.register("/static/uv-sw.js", {
+            scope: "/static/",
+        });
+    }
+
+    regsw();
+    </script>
+  <script>function startTime() {
+  var today = new Date();
+  var hours = today.getHours();
+  hours = hours % 12 || 12;
+  var minutes = today.getMinutes();
+  minutes = minutes < 10 ? "0" + minutes : minutes;
+  var time = hours + ":" + minutes;
+  document.getElementById("time-text").innerHTML = time;
+  setTimeout(startTime, 1000);
+}
+startTime();
+
+const savedSearchEngine = localStorage.getItem("searchEngine");
+
+const searchEngineUrls = {
+  google: "https://www.google.com/search?q=%s",
+  bing: "https://www.bing.com/search?q=%s",
+  duckduckgo: "https://duckduckgo.com/?q=%s",
+  yahoo: "https://search.yahoo.com/search?p=%s"
+};
+
+const searchEngineInput = document.getElementById("uv-search-engine");
+const addressInput = document.getElementById("uv-address");
+
+if (searchEngineUrls[savedSearchEngine]) {
+  searchEngineInput.value = searchEngineUrls[savedSearchEngine];
+  addressInput.placeholder = `Search ${savedSearchEngine.charAt(0).toUpperCase() + savedSearchEngine.slice(1)} or type a URL`;
+} else {
+  searchEngineInput.value = searchEngineUrls.google;
+  addressInput.placeholder = "Search Google or type a URL";
+}
+
+
+function handleAddShortcut() {
+  const shortcutName = prompt('Enter the name of the shortcut:');
+  if (!shortcutName) return;
+
+  const shortcutUrl = prompt('Enter the URL of the shortcut:');
+  if (!shortcutUrl) return;
+
+  const shortcutImageUrl = prompt('Enter the image URL for the shortcut (optional):');
+
+  const shortcutButton = document.createElement('button');
+  shortcutButton.classList.add('shortcut');
+  shortcutButton.title = 'shortcut';
+  shortcutButton.onclick = () => loadPage(shortcutUrl);
+
+  if (shortcutImageUrl) {
+    const shortcutImage = document.createElement('img');
+    shortcutImage.classList.add('shortcut-image');
+    shortcutImage.src = shortcutImageUrl;
+    shortcutImage.alt = '';
+    shortcutButton.appendChild(shortcutImage);
+  }
+
+  const shortcutText = document.createElement('p');
+  shortcutText.textContent = shortcutName;
+  shortcutButton.appendChild(shortcutText);
+
+  document.querySelector('.shortcuts').appendChild(shortcutButton);
+
+  const shortcuts = localStorage.getItem('shortcuts') || '[]';
+  const parsedShortcuts = JSON.parse(shortcuts);
+  parsedShortcuts.push({ name: shortcutName, url: shortcutUrl, imageUrl: shortcutImageUrl });
+  localStorage.setItem('shortcuts', JSON.stringify(parsedShortcuts));
+}
+
+function updateSavedShortcuts(shortcut) {
+
+  const shortcutButton = document.createElement('button');
+  shortcutButton.classList.add('shortcut');
+  shortcutButton.title = 'shortcut'; 
+
+  shortcutButton.onclick = () => loadPage(shortcut.url);
+
+  if (shortcut.imageUrl) {
+    const shortcutImage = document.createElement('img');
+    shortcutImage.classList.add('shortcut-image');
+    shortcutImage.src = shortcut.imageUrl;
+    shortcutImage.alt = '';
+
+    shortcutButton.appendChild(shortcutImage);
+  } else {
+
+  }
+
+  const shortcutText = document.createElement('p');
+  shortcutText.textContent = shortcut.name;
+  shortcutButton.appendChild(shortcutText);
+
+  document.querySelector('.shortcuts').appendChild(shortcutButton);
+}
+
+const storedShortcuts = JSON.parse(localStorage.getItem('shortcuts')) || [];
+storedShortcuts.forEach(shortcut => {
+  updateSavedShortcuts(shortcut);
+});
+
+const addressIcon = document.getElementById('addressIcon');
+
+addressInput.addEventListener('keyup', () => {
+  const value = addressInput.value;
+  if (/\./.test(value)) {
+    addressIcon.classList.remove('fa-magnifying-glass');
+    addressIcon.classList.add('fa-earth-americas');
+  } else {
+    addressIcon.classList.remove('fa-earth-americas');
+    addressIcon.classList.add('fa-magnifying-glass');
+  }
+});
+</script>
+</body>
+</html>
