@@ -259,9 +259,8 @@
         </form>
 <script>
   <script>
-        function openPage(url) {
-            const embeddedUrl = `/static/embed#${url}`;
-            window.location.hash = embeddedUrl; // Navigates to the embedded URL on the same page
+         function openPage(url) {
+            window.location.href = url;  // This will change the location to the desired URL
         }
     </script>
 </script>
