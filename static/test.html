@@ -28,6 +28,11 @@
             text-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
         }
 
+        #dynamicParagraph {
+            cursor: pointer;
+            color: #ff6347;
+        }
+
         /* Search Container */
         #search-container {
             width: 100%;
@@ -220,6 +225,9 @@
 
 <h1>Proxy</h1>
 
+<!-- Dynamic Paragraph Text -->
+<p id="dynamicParagraph">(TEXT)</p>
+
 <!-- Search Bar -->
 <div id="search-container">
     <form id="uv-form" onsubmit="submitSearch(event)">
@@ -276,6 +284,25 @@
 </div>
 
 <script>
+    // Dynamic Text Change Logic
+    const phrases = [
+        "us5 when",
+        "credits to brunys for the proxy stuff",
+        "idk",
+        "there is a nuclear bomb heading for your location. please seek shelter immediately",
+    ];
+
+    const paragraph = document.getElementById('dynamicParagraph');
+
+    function changeText() {
+        const randomPhrase = phrases[Math.floor(Math.random() * phrases.length)];
+        paragraph.textContent = randomPhrase;
+    }
+
+    paragraph.addEventListener('click', changeText);
+    window.onload = changeText;
+
+    // Function to handle opening URLs in an embedded frame
     function openEmbedPage(url) {
         document.querySelector('h1').style.display = 'none';
         document.querySelector('#search-container').style.display = 'none';
@@ -284,22 +311,26 @@
         document.querySelector('#embed-frame').src = `/static/embed#${url}`;
     }
 
+    // Function for search submission
     function submitSearch(event) {
         event.preventDefault();
         const searchQuery = document.getElementById('uv-address').value;
         openEmbedPage(searchQuery);
     }
 
+    // Function to show the add shortcut form
     function showAddShortcutForm() {
         document.getElementById('overlay').classList.add('show');
         document.getElementById('add-shortcut-form').classList.add('show');
     }
 
+    // Function to close the add shortcut form
     function closeAddShortcutForm() {
         document.getElementById('overlay').classList.remove('show');
         document.getElementById('add-shortcut-form').classList.remove('show');
     }
 
+    // Function to add a custom shortcut
     function addCustomShortcut() {
         const url = document.getElementById('shortcut-url').value;
         const image = document.getElementById('shortcut-image').value;
