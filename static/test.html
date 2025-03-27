@@ -7,16 +7,23 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="../storage/css/static.css">
     <style>
-        /* Style for the search bar and button */
-        #search-container {
+        body {
+            font-family: Arial, sans-serif;
             text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Main Search Bar Styling */
+        #search-container {
             margin-top: 50px;
+            text-align: center;
         }
 
         #search-button {
-            width: 200px; /* Same size as the shortcuts */
-            height: 50px; /* Same height as the shortcuts */
-            border-radius: 24px; /* Rounded edges like Google */
+            width: 200px;
+            height: 50px;
+            border-radius: 24px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -31,58 +38,59 @@
             background-color: rgba(0, 0, 0, 0.1);
         }
 
-        /* Styles for the shortcut container (outside search bar) */
+        /* Shortcut Grid Container */
         .shortcut-container {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 20px;
+            padding: 20px;
+            justify-items: center;
             margin-top: 30px;
-            flex-wrap: wrap;
         }
 
-        /* Shortcut style (same as Google button) */
+        /* Individual Shortcut Style */
         .shortcut {
-            width: 200px; /* Same width as Google button */
-            height: 50px; /* Same height as Google button */
-            border-radius: 24px; /* Rounded edges like Google */
+            width: 120px;
+            height: 120px;
+            border-radius: 16px;
+            background-color: #f8f8f8;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
             display: flex;
             justify-content: center;
             align-items: center;
-            cursor: pointer;
-            background-color: #f8f8f8;
+            flex-direction: column;
+            text-align: center;
             transition: background-color 0.3s ease;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            font-size: 16px;
-            border: 1px solid #ccc;
         }
 
-        /* Hover effect for the shortcuts */
         .shortcut:hover {
             background-color: rgba(0, 0, 0, 0.1);
         }
 
-        /* Logo size */
         .shortcut img {
-            max-width: 24px;
-            max-height: 24px;
-            margin-right: 10px; /* Space between the logo and text */
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
         }
 
-        /* Text style for the shortcut button */
         .shortcut-text {
-            font-size: 16px;
+            margin-top: 10px;
+            font-size: 14px;
         }
 
-        /* Full-screen iframe */
+        /* Fullscreen Embed iframe */
         .fullpage-iframe {
             width: 100%;
-            height: 100vh; /* Full height of the viewport */
+            height: 100vh;
             border: none;
             position: absolute;
             top: 0;
             left: 0;
-            z-index: -1; /* Ensure iframe stays in the background */
+            z-index: -1;
         }
+
     </style>
 </head>
 <body>
@@ -103,142 +111,107 @@
     </form>
 </div>
 
-<!-- App Shortcuts (Outside Search Bar) -->
+<!-- Shortcut Grid -->
 <div class="shortcut-container">
-    <!-- GeForce -->
+    <!-- Example Shortcuts with Dynamic Favicons -->
     <div class="shortcut" onclick="openEmbedPage('https://www.nvidia.com/en-us/geforce/')">
-        <img src="https://www.nvidia.com/content/dam/en-zz/Solutions/geforce/brand-assets/GeForce_logo_white.png" alt="GeForce Logo">
-        <span class="shortcut-text">GeForce</span>
+        <img class="favicon" src="" alt="GeForce">
+        <div class="shortcut-text">GeForce</div>
     </div>
 
-    <!-- Instagram -->
-    <div class="shortcut" onclick="openEmbedPage('https://www.instagram.com/')">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram Logo">
-        <span class="shortcut-text">Instagram</span>
-    </div>
-
-    <!-- Twitch -->
-    <div class="shortcut" onclick="openEmbedPage('https://www.twitch.tv/')">
-        <img src="https://static.twitchcdn.net/assets/favicon-a26a431b97960a990635.svg" alt="Twitch Logo">
-        <span class="shortcut-text">Twitch</span>
-    </div>
-
-    <!-- Roblox -->
     <div class="shortcut" onclick="openEmbedPage('https://www.roblox.com/')">
-        <img src="https://www.roblox.com/favicon.ico" alt="Roblox Logo">
-        <span class="shortcut-text">Roblox</span>
+        <img class="favicon" src="" alt="Roblox">
+        <div class="shortcut-text">Roblox</div>
     </div>
 
-    <!-- YouTube -->
+    <div class="shortcut" onclick="openEmbedPage('https://www.instagram.com/')">
+        <img class="favicon" src="" alt="Instagram">
+        <div class="shortcut-text">Instagram</div>
+    </div>
+
+    <div class="shortcut" onclick="openEmbedPage('https://www.twitch.tv/')">
+        <img class="favicon" src="" alt="Twitch">
+        <div class="shortcut-text">Twitch</div>
+    </div>
+
     <div class="shortcut" onclick="openEmbedPage('https://www.youtube.com/')">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/4/42/YouTube_icon_%282013-2017%29.png" alt="YouTube Logo">
-        <span class="shortcut-text">YouTube</span>
+        <img class="favicon" src="" alt="YouTube">
+        <div class="shortcut-text">YouTube</div>
     </div>
 
-    <!-- Now.gg -->
     <div class="shortcut" onclick="openEmbedPage('https://now.gg/')">
-        <img src="https://now.gg/images/nowgg-logo.svg" alt="Now.gg Logo">
-        <span class="shortcut-text">Now.gg</span>
+        <img class="favicon" src="" alt="Now.gg">
+        <div class="shortcut-text">Now.gg</div>
     </div>
 
-    <!-- Facebook -->
-    <div class="shortcut" onclick="openEmbedPage('https://www.facebook.com/')">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook Logo">
-        <span class="shortcut-text">Facebook</span>
+    <div class="shortcut" onclick="openEmbedPage('https://www.netflix.com/')">
+        <img class="favicon" src="" alt="Netflix">
+        <div class="shortcut-text">Netflix</div>
     </div>
 
-    <!-- Twitter -->
-    <div class="shortcut" onclick="openEmbedPage('https://twitter.com/')">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/6/60/Twitter_Logo_2021.svg" alt="Twitter Logo">
-        <span class="shortcut-text">Twitter</span>
-    </div>
-
-    <!-- Steam -->
-    <div class="shortcut" onclick="openEmbedPage('https://store.steampowered.com/')">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/5/56/Steam_icon_logo.svg" alt="Steam Logo">
-        <span class="shortcut-text">Steam</span>
+    <div class="shortcut" onclick="openEmbedPage('https://www.spotify.com/')">
+        <img class="favicon" src="" alt="Spotify">
+        <div class="shortcut-text">Spotify</div>
     </div>
 </div>
 
-<!-- Scripts -->
-<script src="/static/uv/uv.bundle.js" defer></script>
-<script src="/static/uv/uv.config.js" defer></script>
-<script src="/static/register-sw.js" defer></script>
-<script src="/static/search.js" defer></script>
-<script src="/static/index.js" defer></script>
+<!-- Fullscreen Embed -->
+<iframe class="fullpage-iframe" id="embed-frame" src=""></iframe>
 
 <script>
-    // Function to open the selected website in an iframe and make it full-page
-    function openEmbedPage(url) {
-        // Remove existing iframe if there's one
-        const existingIframe = document.querySelector('.fullpage-iframe');
-        if (existingIframe) {
-            existingIframe.remove();
-        }
-
-        const iframe = document.createElement('iframe');
-        iframe.src = `/static/embed#${url}`;
-        iframe.className = 'fullpage-iframe'; // Apply full-page styling
-        document.body.appendChild(iframe); // Append the iframe to the body
-    }
-
-    // Handle search logic, including URL handling with "://"
-    function submitSearch(event) {
-        event.preventDefault(); // Prevent form submission
-
-        const input = document.getElementById('uv-address').value.trim();
-        const searchEngineUrl = document.getElementById('uv-search-engine').value;
-
-        // Check if the input starts with '://', indicating a custom prefix
-        if (input.startsWith('://')) {
-            if (input === '://games') {
-                window.location.href = "https://yourgamespage.com"; // Replace with actual games page URL
-            } else if (input === '://apps') {
-                window.location.href = "https://yourapps.com"; // Replace with actual apps page URL
-            } else if (input === '://settings') {
-                window.location.href = "https://yoursettings.com"; // Replace with actual settings page URL
-            } else if (input === '://movies') {
-                window.location.href = "https://yourmovies.com"; // Replace with actual movies page URL
+    // Function to dynamically set favicon for each app
+    function setFavicon(domain, element) {
+        const faviconUrl = `${domain}/favicon.ico`;
+        fetch(faviconUrl, {
+            method: 'HEAD',
+            mode: 'no-cors'
+        }).then(response => {
+            if (response.ok) {
+                element.src = faviconUrl; // If favicon exists, set the image source
             } else {
-                // If no custom prefix is found, show error or redirect to a default page
-                alert("Unknown prefix! Please try again.");
+                element.src = "https://www.example.com/default-favicon.ico"; // Default favicon if not found
             }
-        } else {
-            // Otherwise, perform a search using DuckDuckGo
-            const query = encodeURIComponent(input);
-            const url = searchEngineUrl.replace('%s', query); // DuckDuckGo search URL
-            window.location.href = url; // Perform the search using DuckDuckGo
-        }
-    }
-
-    // Random phrases for dynamic paragraph
-    const phrases = [
-        "us5 when",
-        "credits to brunys for the proxy stuff",
-        "idk",
-        "there is a nuclear bomb heading for your location. please seek shelter immediately",
-    ];
-
-    const paragraph = document.getElementById('dynamicParagraph');
-
-    function changeText() {
-        const randomPhrase = phrases[Math.floor(Math.random() * phrases.length)];
-        paragraph.textContent = randomPhrase;
-    }
-
-    paragraph.addEventListener('click', changeText);
-    window.onload = changeText;
-</script>
-
-<script type="text/javascript" src="/storage/js/background.js"></script>
-<script>
-    async function regsw() {
-        await navigator.serviceWorker.register("/static/uv-sw.js", {
-            scope: "/static/",
+        }).catch(() => {
+            element.src = "https://www.example.com/default-favicon.ico"; // Default favicon if error occurs
         });
     }
 
-    regsw();
+    // Set the favicon for each app (you can add more apps here)
+    window.onload = function() {
+        const shortcuts = [
+            { domain: 'https://www.nvidia.com', id: 'geforce-favicon' },
+            { domain: 'https://www.roblox.com', id: 'roblox-favicon' },
+            { domain: 'https://www.instagram.com', id: 'instagram-favicon' },
+            { domain: 'https://www.twitch.tv', id: 'twitch-favicon' },
+            { domain: 'https://www.youtube.com', id: 'youtube-favicon' },
+            { domain: 'https://now.gg', id: 'nowgg-favicon' },
+            { domain: 'https://www.netflix.com', id: 'netflix-favicon' },
+            { domain: 'https://www.spotify.com', id: 'spotify-favicon' }
+        ];
+
+        // Loop through each shortcut to set its favicon dynamically
+        const shortcutElements = document.querySelectorAll('.shortcut');
+        shortcutElements.forEach((shortcut, index) => {
+            const imgElement = shortcut.querySelector('img');
+            const { domain } = shortcuts[index];
+            setFavicon(domain, imgElement);
+        });
+    };
+
+    // Function to handle opening the URLs in the embed iframe
+    function openEmbedPage(url) {
+        document.getElementById('embed-frame').src = `/static/embed#${url}`;
+    }
+
+    // Handle search form submission
+    function submitSearch(event) {
+        event.preventDefault();
+        const input = document.getElementById('uv-address').value.trim();
+        if (input) {
+            const url = input.startsWith('http') ? input : `https://duckduckgo.com/?q=${encodeURIComponent(input)}`;
+            openEmbedPage(url);
+        }
+    }
 </script>
 
 </body>
