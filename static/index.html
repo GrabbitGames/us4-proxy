@@ -258,11 +258,12 @@
             <button id="search-button" onclick="submitSearch()">SEARCH <i class="fa-solid fa-magnifying-glass"></i></button>
         </form>
 <script>
-  // Updated openPage function to append the URL to /static/embed#
-  function openPage(url) {
-      const embeddedUrl = `/static/embed#${url}`;
-      window.open(embeddedUrl, '_blank');
-  }
+  <script>
+        function openPage(url) {
+            const embeddedUrl = `/static/embed#${url}`;
+            window.location.hash = embeddedUrl; // Navigates to the embedded URL on the same page
+        }
+    </script>
 </script>
 <br>
         <br>
