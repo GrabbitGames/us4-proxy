@@ -182,19 +182,10 @@
 </style>
          <script>
         // Show the iframe with the appropriate URL when a shortcut is clicked
-        function openPage(url) {
-            const iframe = document.getElementById('embed-iframe');
-            const formattedUrl = '/static/embed.html#' + encodeURIComponent(url);
-            iframe.style.display = 'block'; // Make iframe visible
-            iframe.src = formattedUrl; // Set iframe source
-        }
+function openPage(url) {
+    window.location.href = url; // Open the link in the current tab
+}
 
-        // Function to close the iframe (reset the iframe's source and hide it)
-        function closeIframe() {
-            const iframe = document.getElementById('embed-iframe');
-            iframe.style.display = 'none'; // Hide iframe
-            iframe.src = ''; // Optionally reset iframe's source
-        }
     </script>
 </div>
 
