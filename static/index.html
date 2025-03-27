@@ -258,8 +258,11 @@
             <button id="search-button" onclick="submitSearch()">SEARCH <i class="fa-solid fa-magnifying-glass"></i></button>
         </form>
 <script>
-         function openPage(url) {
-            window.location.href = url;  // This will change the location to the desired URL
+         // Updated function to load page inside iframe with the format /static/embed.html#https://url_here
+        function openPage(url) {
+            const iframe = document.getElementById('embed-iframe');
+            const formattedUrl = '/static/embed.html#' + encodeURIComponent(url); // Format URL to the desired structure
+            iframe.src = formattedUrl; // Set iframe source to the formatted URL
         }
 </script>
 <br>
