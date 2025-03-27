@@ -150,7 +150,8 @@
             height: 100%;
             z-index: 0;
         
-}</style>
+}
+    </style>
         <style>
         /* Global Reset */
         * {
@@ -259,8 +260,7 @@
         </form>
 <script>
          <script>
-        // Updated function to load page inside iframe with the format /static/embed#https://url_here
-        function openPage(url) {
+       function openPage(url) {
             const iframe = document.getElementById('embed-iframe');
             const formattedUrl = '/static/embed.html#' + encodeURIComponent(url); // Format URL to the desired structure
             iframe.src = formattedUrl; // Set iframe source to the formatted URL
