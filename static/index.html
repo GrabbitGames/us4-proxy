@@ -258,12 +258,24 @@
             <button id="search-button" onclick="submitSearch()">SEARCH <i class="fa-solid fa-magnifying-glass"></i></button>
         </form>
 <script>
-         // Updated function to load page inside iframe with the format /static/embed.html#https://url_here
-        function openPage(url) {
-            const iframe = document.getElementById('embed-iframe');
-            const formattedUrl = '/static/embed.html#' + encodeURIComponent(url); // Format URL to the desired structure
-            iframe.src = formattedUrl; // Set iframe source to the formatted URL
-        }
+  const iframe = document.getElementById('embed-iframe');
+    
+    // Show the iframe
+    iframe.style.display = 'block';  // Make iframe visible
+    
+    // Format the URL
+    const formattedUrl = '/static/embed.html#' + encodeURIComponent(url);
+    
+    // Set iframe's source to the formatted URL
+    iframe.src = formattedUrl;
+}
+
+// Close the iframe when clicked
+function closeIframe() {
+    const iframe = document.getElementById('embed-iframe');
+    iframe.style.display = 'none';  // Hide iframe
+    iframe.src = '';  // Optionally reset the iframe's source
+}
 </script>
 <br>
         <br>
