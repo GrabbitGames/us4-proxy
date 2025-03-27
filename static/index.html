@@ -150,8 +150,7 @@
             height: 100%;
             z-index: 0;
         
-}
-    </style>
+}</style>
         <style>
         /* Global Reset */
         * {
@@ -259,13 +258,9 @@
             <button id="search-button" onclick="submitSearch()">SEARCH <i class="fa-solid fa-magnifying-glass"></i></button>
         </form>
 <script>
-         <script>
-       function openPage(url) {
-            const iframe = document.getElementById('embed-iframe');
-            const formattedUrl = '/static/embed.html#' + encodeURIComponent(url); // Format URL to the desired structure
-            iframe.src = formattedUrl; // Set iframe source to the formatted URL
+         function openPage(url) {
+            window.location.href = url;  // This will change the location to the desired URL
         }
-    </script>
 </script>
 <br>
         <br>
@@ -514,9 +509,5 @@ addressInput.addEventListener('keyup', () => {
   }
 });
 </script>
-    <div id="iframe-container">
-        <iframe id="embed-iframe" src="about:blank"></iframe> <!-- Initially set to about:blank -->
-    </div>
-
 </body>
 </html>
