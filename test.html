@@ -1,296 +1,291 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta property="og:title" content="US4 | Proxy">
-    <meta property="og:description" content="Search the web freely with our web proxy!">
-    <meta property="og:image" content="/storage/images/logo.png">
-    <title>Home</title>
-    <link rel="icon" href="https://voucan-us4.github.io/storage/images/googleclassroom.png" type="image/png">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-K8CCSDNPV3"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta property="og:title" content="US4 | Proxy">
+  <meta property="og:description" content="Search the web freely with our web proxy!">
+  <meta property="og:image" content="/storage/images/logo.png">
+  <title>Home</title>
+  <link rel="icon" href="https://voucan-us4.github.io/storage/images/googleclassroom.png" type="image/png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-K8CCSDNPV3"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
 
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag('js', new Date());
-      gtag('config', 'G-K8CCSDNPV3');
-    </script>
-    <style>
-      /* Global reset for all elements */
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: 'Comfortaa', sans-serif;
-        font-weight: bold;
-      }
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+    gtag('config', 'G-K8CCSDNPV3');
+  </script>
+  <style>
+    /* Global reset for all elements */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Comfortaa', sans-serif;
+      font-weight: bold;
+    }
 
-      body,
-      html {
-        height: 100%;
-        overflow: hidden;
-        display: flex;
-        flex-direction: column;
-        background-color: black;
-      }
+    body, html {
+      height: 100%;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      background-color: black;
+    }
 
-      /* Tabs Styles */
-      .tabs {
-        display: flex;
-        align-items: center;
-        background: rgba(0, 0, 0, 0.4);
-        backdrop-filter: blur(10px);
-        padding: 5px 10px;
-        width: 60%; /* Adjusted width for centering */
-        position: fixed;
-        top: 0;
-        left: 50%;
-        transform: translateX(-50%);
-        z-index: 1200;
-        border-radius: 10px 10px 0 0;
-        justify-content: flex-start;
-        overflow: hidden;
-        max-height: 60px;
-        border-bottom: 2px solid #D500F9;
-        transition: transform 0.3s ease-in-out;
-      }
+    /* Tabs Styles */
+    .tabs {
+      display: flex;
+      align-items: center;
+      background: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(10px);
+      padding: 5px 10px;
+      max-width: 1000px; /* Set max width for centering */
+      width: 100%; /* Allow it to grow */
+      position: fixed;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1200;
+      border-radius: 10px 10px 0 0;
+      justify-content: flex-start;
+      overflow: hidden;
+      max-height: 60px;
+      border-bottom: 2px solid #D500F9;
+      transition: transform 0.3s ease-in-out;
+    }
 
-      .tab {
-        display: flex;
-        align-items: center;
-        padding: 10px 15px;
-        color: white;
-        cursor: pointer;
-        background-color: rgba(255, 255, 255, 0.1);
-        border-right: 2px solid rgba(255, 255, 255, 0.3);
-        transition: background-color 0.3s;
-        flex-shrink: 0;
-        min-width: 120px;
-        max-width: 250px;
-        overflow: hidden;
-        border-radius: 5px;
-        text-overflow: ellipsis;
-      }
+    .tab {
+      display: flex;
+      align-items: center;
+      padding: 10px 15px;
+      color: white;
+      cursor: pointer;
+      background-color: rgba(255, 255, 255, 0.1);
+      border-right: 2px solid rgba(255, 255, 255, 0.3);
+      transition: background-color 0.3s;
+      flex-shrink: 0;
+      min-width: 120px;
+      max-width: 250px;
+      overflow: hidden;
+      border-radius: 5px;
+      text-overflow: ellipsis;
+    }
 
-      /* Active tab styles */
-      .tab.active {
-        background-color: rgba(255, 255, 255, 0.2);
-        color: white;
-      }
+    .tab.active {
+      background-color: rgba(255, 255, 255, 0.2);
+      color: white;
+    }
 
-      /* Hover tab styles */
-      .tab:hover {
-        background-color: rgba(255, 255, 255, 0.3);
-      }
+    .tab:hover {
+      background-color: rgba(255, 255, 255, 0.3);
+    }
 
-      /* Close button in tabs */
-      .tab .close-button {
-        margin-left: 5px;
-        color: white;
-        cursor: pointer;
-        font-size: 16px;
-      }
+    .tab .close-button {
+      margin-left: 5px;
+      color: white;
+      cursor: pointer;
+      font-size: 16px;
+    }
 
-      .tab .close-button:hover {
-        color: white;
-      }
+    /* Add tab button */
+    .add-tab-button {
+      padding: 15px;
+      cursor: pointer;
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      border: none;
+      outline: none;
+      font-size: 22px;
+      border-radius: 5px;
+      box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.5);
+      transition: transform 0.2s;
+    }
 
-      /* Add tab button */
-      .add-tab-button {
-        padding: 15px;
-        cursor: pointer;
-        background: rgba(255, 255, 255, 0.1);
-        color: white;
-        border: none;
-        outline: none;
-        font-size: 22px;
-        border-radius: 5px;
-        box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.5);
-        transition: transform 0.2s;
-      }
+    .add-tab-button:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: scale(1.05);
+    }
 
-      .add-tab-button:hover {
-        background: rgba(255, 255, 255, 0.3);
-        transform: scale(1.05);
-      }
+    .add-tab-button:active {
+      background: rgba(255, 255, 255, 0.4);
+      transform: scale(1.1);
+    }
 
-      .add-tab-button:active {
-        background: rgba(255, 255, 255, 0.4);
-        transform: scale(1.1);
-      }
+    /* Navbar Styles */
+    .navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(10px);
+      padding: 15px 5%;
+      color: white;
+      border-radius: 0 0 10px 10px;
+      position: fixed;
+      top: 60px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%; /* Full width */
+      max-width: 1000px; /* Set max width for centering */
+      z-index: 1100;
+      transition: transform 0.3s ease-in-out;
+    }
 
-      /* Navbar Styles */
-      .navbar {
-        display: flex;
-        align-items: center;
-        justify-content: space-between; /* Space between buttons */
-        background: rgba(0, 0, 0, 0.4);
-        backdrop-filter: blur(10px);
-        padding: 15px 5%;
-        color: white;
-        border-radius: 0 0 10px 10px;
-        position: fixed;
-        top: 60px; /* Adjusted to be below tabs */
-        left: 50%;
-        transform: translateX(-50%);
-        width: 60%; /* Adjusted width for centering */
-        z-index: 1100;
-        transition: transform 0.3s ease-in-out;
-      }
+    .navbar-left {
+      display: flex;
+      gap: 15px;
+    }
 
-      .navbar-left {
-        display: flex;
-        gap: 15px;
-      }
+    .nav-btn {
+      text-decoration: none;
+      color: white;
+      font-size: 18px;
+      padding: 8px 15px;
+      border-radius: 5px;
+      background: rgba(255, 255, 255, 0.1);
+      border: none;
+      transition: background-color 0.3s, box-shadow 0.3s;
+    }
 
-      .nav-btn {
-        text-decoration: none;
-        color: white;
-        font-size: 18px;
-        padding: 8px 15px;
-        border-radius: 5px;
-        background: rgba(255, 255, 255, 0.1);
-        border: none;
-        transition: background-color 0.3s, box-shadow 0.3s;
-      }
+    .nav-btn:hover {
+      background: rgba(255, 255, 255, 0.3);
+      box-shadow: 0 0 20px 5px rgba(213, 0, 249, 0.7);
+    }
 
-      .nav-btn:hover {
-        background: rgba(255, 255, 255, 0.3);
-        box-shadow: 0 0 20px 5px rgba(213, 0, 249, 0.7);
-      }
+    .nav-btn:focus {
+      box-shadow: 0 0 30px 8px rgba(213, 0, 249, 0.9);
+    }
 
-      .nav-btn:focus {
-        box-shadow: 0 0 30px 8px rgba(213, 0, 249, 0.9);
-      }
+    .search-bar-container {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      margin-left: 15px;
+    }
 
-      .search-bar-container {
-        display: flex;
-        justify-content: center;
-        width: 100%;
-        margin-left: 15px;
-      }
+    .search-bar {
+      flex-grow: 1;
+      max-width: 600px;
+      padding: 15px 25px;
+      border-radius: 20px;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      background: rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(10px);
+      color: white;
+      font-size: 18px;
+      outline: none;
+      text-align: center;
+    }
 
-      .search-bar {
-        flex-grow: 1;
-        max-width: 600px;
-        padding: 15px 25px;
-        border-radius: 20px;
-        border: 2px solid rgba(255, 255, 255, 0.3);
-        background: rgba(0, 0, 0, 0.3);
-        backdrop-filter: blur(10px);
-        color: white;
-        font-size: 18px;
-        outline: none;
-        text-align: center;
-      }
+    .search-bar::placeholder {
+      color: rgba(255, 255, 255, 0.7);
+    }
 
-      .search-bar::placeholder {
-        color: rgba(255, 255, 255, 0.7);
-      }
+    .search-bar:focus {
+      border-color: rgba(255, 255, 255, 0.5);
+      background: rgba(0, 0, 0, 0.5);
+      box-shadow: 0 0 30px 5px rgba(213, 0, 249, 0.8);
+    }
 
-      .search-bar:focus {
-        border-color: rgba(255, 255, 255, 0.5);
-        background: rgba(0, 0, 0, 0.5);
-        box-shadow: 0 0 30px 5px rgba(213, 0, 249, 0.8);
-      }
+    /* Content wrapper */
+    .content-wrapper {
+      flex-grow: 1;
+      overflow: hidden;
+      position: relative;
+      height: 100%;
+    }
 
-      /* Content wrapper */
-      .content-wrapper {
-        flex-grow: 1;
-        overflow: hidden;
-        position: relative;
-        height: 100%;
-      }
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: none;
+    }
 
-      iframe {
-        width: 100%;
-        height: 100%;
-        border: none;
-        display: none;
-      }
+    iframe.active {
+      display: block;
+    }
 
-      iframe.active {
-        display: block;
-      }
+    /* Navbar hidden state */
+    .navbar.hidden,
+    .tabs.hidden {
+      transform: translateY(-200%);
+    }
 
-      /* Navbar hidden state */
-      .navbar.hidden,
-      .tabs.hidden {
-        transform: translateY(-200%);
-      }
+    /* Show navbar button styles */
+    .show-navbar-btn {
+      display: none;
+      padding: 15px;
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 22px;
+      box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.5);
+    }
 
-      /* Show navbar button styles */
-      .show-navbar-btn {
-        display: none;
-        padding: 15px;
-        background: rgba(255, 255, 255, 0.1);
-        color: white;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        font-size: 22px;
-        box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.5);
-      }
+    .show-navbar-btn.active {
+      display: block;
+    }
 
-      .show-navbar-btn.active {
-        display: block;
-      }
+    .show-navbar-btn:hover {
+      box-shadow: 0 0 25px 8px rgba(255, 255, 255, 0.9);
+      transform: scale(1.05);
+    }
+  </style>
+</head>
 
-      .show-navbar-btn:hover {
-        box-shadow: 0 0 25px 8px rgba(255, 255, 255, 0.9);
-        transform: scale(1.05);
-      }
-    </style>
-  </head>
-  <body>
-    <div class="tabs" id="tabs">
-      <div class="tab active" onclick="selectTab(this)">New Tab <span class="close-button" onclick="closeTab(event)">×</span></div>
-      <button class="add-tab-button">+</button>
-    </div>
+<body>
+  <div class="tabs" id="tabs">
+    <div class="tab active" onclick="selectTab(this)">New Tab <span class="close-button" onclick="closeTab(event)">×</span></div>
+    <button class="add-tab-button">+</button>
+  </div>
 
-    <div class="navbar" id="navbar">
-      <div class="navbar-left">
-        <button onclick="home()" class="nav-btn">
-          <i class="fa fa-home"></i>
-        </button>
-        <button onclick="document.querySelector('.tab-iframe.active').contentWindow.history.back()" class="nav-btn">
-          <i class="fas fa-arrow-left"></i>
-        </button>
-        <button onclick="document.querySelector('.tab-iframe.active').contentWindow.history.forward()" class="nav-btn">
-          <i class="fas fa-arrow-right"></i>
-        </button>
-        <button onclick="document.querySelector('.tab-iframe.active').contentWindow.location.reload()" class="nav-btn">
-          <i class="fas fa-redo"></i>
-        </button>
-        <div class="search-bar-container">
-          <input type="text" id="search-input" class="search-bar" placeholder="Search or enter a URL">
-        </div>
-        <button onclick="inspect()" class="nav-btn">
-          <i class="fa fa-code"></i>
-        </button>
-        <button onclick="toggleFullscreen()" class="nav-btn">
-          <i class="fas fa-expand"></i>
-        </button>
-        <button onclick="toggleNavbar()" class="nav-btn" id="hide-navbar-btn">
-          <i class="fa fa-chevron-up"></i>
-        </button>
+  <div class="navbar" id="navbar">
+    <div class="navbar-left">
+      <button onclick="home()" class="nav-btn">
+        <i class="fa fa-home"></i>
+      </button>
+      <button onclick="document.querySelector('.tab-iframe.active').contentWindow.history.back()" class="nav-btn">
+        <i class="fas fa-arrow-left"></i>
+      </button>
+      <button onclick="document.querySelector('.tab-iframe.active').contentWindow.history.forward()" class="nav-btn">
+        <i class="fas fa-arrow-right"></i>
+      </button>
+      <button onclick="document.querySelector('.tab-iframe.active').contentWindow.location.reload()" class="nav-btn">
+        <i class="fas fa-redo"></i>
+      </button>
+      <div class="search-bar-container">
+        <input type="text" id="search-input" class="search-bar" placeholder="Search or enter a URL">
       </div>
+      <button onclick="inspect()" class="nav-btn">
+        <i class="fa fa-code"></i>
+      </button>
+      <button onclick="toggleFullscreen()" class="nav-btn">
+        <i class="fas fa-expand"></i>
+      </button>
+      <button onclick="toggleNavbar()" class="nav-btn" id="hide-navbar-btn">
+        <i class="fa fa-chevron-up"></i>
+      </button>
     </div>
+  </div>
 
-    <div class="show-navbar-btn" id="show-navbar-btn" onclick="toggleNavbar()">
-      <i class="fa fa-chevron-down"></i>
-    </div>
+  <div class="show-navbar-btn" id="show-navbar-btn" onclick="toggleNavbar()">
+    <i class="fa fa-chevron-down"></i>
+  </div>
 
-    <div class="content-wrapper" id="content-wrapper">
-      <iframe class="tab-iframe active" src="/static/index.html" onload="updateTabName(this)"></iframe>
-    </div>
+  <div class="content-wrapper" id="content-wrapper">
+    <iframe class="tab-iframe active" src="/static/index.html" onload="updateTabName(this)"></iframe>
+  </div>
 
-    <script>
-      let tabCount = 1;
+  <script>
+let tabCount = 1;
 
       function selectTab(tab) {
         document.querySelectorAll('.tab, .tab-iframe').forEach(el => el.classList.remove('active'));
@@ -388,6 +383,6 @@
           if (e.key === "Enter") search();
         });
       });
-    </script>
-  </body>
+  </script>
+</body>
 </html>
