@@ -1,11 +1,15 @@
         body {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            font-family: Arial, sans-serif;
+            \body {
+  top: 50%;
+  font-family: Poppins;
+  color: #4c4c4c;
+  background-image: url("/bgDark.png");
+  background-attachment: fixed;
+  background-size: cover;
+  background-repeat: no-repeat;
+  text-align: center;
+  transition: 0.5s;
+  scroll-behavior: smooth;
         }
 
         h1 {
