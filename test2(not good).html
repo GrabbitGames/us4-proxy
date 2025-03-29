@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta property="og:title" content="US4 | Proxy">
+  <meta property="og:description" content="Search the web freely with our web proxy!">
+  <meta property="og:image" content="/storage/images/logo.png">
+  <title>Home</title>
+  <link rel="icon" href="https://voucan-us4.github.io/storage/images/googleclassroom.png" type="image/png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-K8CCSDNPV3"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+    gtag('config', 'G-K8CCSDNPV3');
+  </script>
+  <style>
+    /* Global reset for all elements */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Comfortaa', sans-serif;
+      font-weight: bold;
+    }
+
+    body, html {
+      height: 100%;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      background-color: #121212; /* Dark background */
+    }
+
+    /* Tabs Styles */
+    .tabs {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      background: rgba(0, 0, 0, 0.9);
+      border-bottom: 2px solid #D500F9; /* Accent color */
+      width: 100%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 1200;
+      height: 50px;
+      padding: 10px 20px;
+    }
+
+    /* Style for individual tab */
+    .tab {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 20px;
+      color: #E1E1E1; /* Light gray text for dark background */
+      cursor: pointer;
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 20px 20px 0 0;
+      margin-right: 10px;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+      font-size: 14px;
+      max-width: 200px;
+      flex-grow: 1;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      position: relative;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Active tab style */
+    .tab.active {
+      background-color: #D500F9; /* Accent color */
+      color: white;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Hover effect for tabs */
+    .tab:hover {
+      background-color: rgba(213, 0, 249, 0.2); /* Slight hover effect using accent color */
+      transform: scale(1.05);
+    }
+
+    /* Close button on the tab */
+    .tab .close-button {
+      position: absolute;
+      top: 50%;
+      right: 5px;
+      transform: translateY(-50%);
+      font-size: 18px;
+      color: white;
+      cursor: pointer;
+      padding: 0 5px;
+      transition: color 0.2s ease;
+    }
+
+    .tab .close-button:hover {
+      color: #D500F9;
+    }
+
+    /* Add Tab Button */
+    .add-tab-button {
+      background: transparent;
+      border: none;
+      color: white;
+      font-size: 22px;
+      cursor: pointer;
+      padding: 5px 10px;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+
+    .add-tab-button:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    /* Glowing Search Bar Styles */
+    .search-bar-container {
+      display: flex;
+      align-items: center;
+      background-color: rgba(255, 255, 255, 0.1);
+      padding: 10px;
+      border-radius: 20px;
+      margin-left: 20px;
+      max-width: 600px;
+      width: 100%;
+      animation: glowing 1.5s infinite alternate; /* Glowing effect animation */
+    }
+
+    .search-bar {
+      background: transparent;
+      color: white;
+      border: none;
+      outline: none;
+      padding: 12px 20px;
+      width: 100%;
+      font-size: 16px;
+      border-radius: 0px;
+      box-shadow: 0 0 5px 2px rgba(213, 0, 249, 0.5); /* Accent color shadow */
+      transition: box-shadow 0.3s ease, transform 0.3s ease;
+    }
+
+    .search-bar:focus {
+      border: 2px solid #D500F9;
+      box-shadow: 0 0 10px 4px rgba(213, 0, 249, 0.7); /* Accent color focus */
+      transform: scale(1.05);
+    }
+
+    .search-bar::placeholder {
+      color: rgba(255, 255, 255, 0.7);
+      test-ali
+    }
+
+    /* Glowing animation keyframes */
+    @keyframes glowing {
+      0% {
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.7), 0 0 20px rgba(213, 0, 249, 1), 0 0 30px rgba(213, 0, 249, 0.8);
+        transform: scale(1);
+        background-color: #121212;
+      }
+      50% {
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.5), 0 0 25px rgba(213, 0, 249, 1), 0 0 35px rgba(213, 0, 249, 0.9);
+        transform: scale(1.1);
+        background-color: #121212;
+      }
+      100% {
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.7), 0 0 20px rgba(213, 0, 249, 1), 0 0 30px rgba(213, 0, 249, 0.8);
+        transform: scale(1);
+        background-color: #121212;
+      }
+    }
+
+    /* Navbar Styles */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(10px);
+      width: 100%;
+      padding: 15px 20px;
+      color: white;
+      position: fixed;
+      top: 60px;
+      z-index: 1100;
+    }
+
+    .navbar-left {
+      display: flex;
+      gap: 15px;
+    }
+
+    .nav-btn {
+      background: transparent;
+      border: none;
+      color: white;
+      font-size: 18px;
+      cursor: pointer;
+      padding: 8px 15px;
+      border-radius: 5px;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .nav-btn:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+      transform: scale(1.05);
+    }
+
+    .nav-btn:active {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+
+    /* Content wrapper to fit the iframe */
+    .content-wrapper {
+      flex-grow: 1;
+      overflow: hidden;
+      position: relative;
+      height: 100%;
+      margin-top: 120px;
+    }
+
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: none;
+    }
+
+    iframe.active {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Tabs Section -->
+  <div class="tabs" id="tabs">
+    <div class="tab active" onclick="selectTab(this)">
+      New Tab <span class="close-button" onclick="closeTab(event)">×</span>
+    </div>
+    <button class="add-tab-button" onclick="addTab()">+</button>
+  </div>
+
+  <!-- Navbar Section -->
+  <div class="navbar" id="navbar">
+    <div class="navbar-left">
+      <button class="nav-btn" onclick="home()"><i class="fa fa-home"></i></button>
+      <button class="nav-btn" onclick="document.querySelector('.tab-iframe.active').contentWindow.history.back()"><i class="fas fa-arrow-left"></i></button>
+      <button class="nav-btn" onclick="document.querySelector('.tab-iframe.active').contentWindow.history.forward()"><i class="fas fa-arrow-right"></i></button>
+      <button class="nav-btn" onclick="document.querySelector('.tab-iframe.active').contentWindow.location.reload()"><i class="fas fa-redo"></i></button>
+      <div class="search-bar-container">
+        <input type="text" id="search-input" class="search-bar" placeholder="Search or enter a URL" onkeydown="handleSearch(event)">
+      </div>
+    </div>
+  </div>
+
+  <!-- Content Wrapper -->
+  <div class="content-wrapper" id="content-wrapper">
+    <iframe class="tab-iframe active" src="/static/index.html"></iframe>
+  </div>
+
+  <script>
+    let tabCount = 1;
+
+    function selectTab(tab) {
+      document.querySelectorAll('.tab, .tab-iframe').forEach(el => el.classList.remove('active'));
+      tab.classList.add('active');
+      document.querySelectorAll('.tab-iframe')[Array.from(tab.parentNode.children).indexOf(tab)].classList.add('active');
+    }
+
+    function addTab() {
+      tabCount++;
+      const tabsContainer = document.getElementById('tabs');
+      const newTab = document.createElement('div');
+      newTab.classList.add('tab');
+      newTab.innerHTML = `New Tab <span class="close-button" onclick="closeTab(event)">×</span>`;
+      newTab.addEventListener("click", () => selectTab(newTab));
+      tabsContainer.insertBefore(newTab, document.querySelector('.add-tab-button'));
+
+      const iframe = document.createElement('iframe');
+      iframe.classList.add('tab-iframe');
+      iframe.src = '/static/index.html';
+      iframe.onload = function() {
+        updateTabName(iframe);
+      };
+      document.getElementById('content-wrapper').appendChild(iframe);
+    }
+
+    function closeTab(event) {
+      event.stopPropagation();
+      const tab = event.target.closest('.tab');
+      const iframe = document.querySelectorAll('.tab-iframe')[Array.from(tab.parentNode.children).indexOf(tab)];
+      tab.remove();
+      iframe.remove();
+    }
+
+    function updateTabName(iframe) {
+      setTimeout(() => {
+        const tabIndex = Array.from(document.querySelectorAll('.tab-iframe')).indexOf(iframe);
+        const tab = document.querySelectorAll('.tab')[tabIndex];
+        if (tab) {
+          tab.innerHTML = `${iframe.contentWindow.document.title || 'New Tab'} <span class="close-button" onclick="closeTab(event)">×</span>`;
+        }
+      }, 500);
+    }
+
+    function handleSearch(event) {
+      if (event.key === "Enter") {
+        const input = document.getElementById('search-input').value.trim();
+        const iframe = document.querySelector('.tab-iframe.active');
+        if (input) {
+          const url = input.startsWith('http') ? input : `https://duckduckgo.com/?q=${encodeURIComponent(input)}`;
+          iframe.src = url;
+        }
+      }
+    }
+
+    function home() {
+      const iframe = document.querySelector('.tab-iframe.active');
+      iframe.src = '/static/index.html';
+    }
+  </script>
+
+</body>
+</html>
