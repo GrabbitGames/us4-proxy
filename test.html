@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Plexile Proxy Tabs</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    body {
+      background-color: #0f0f0f;
+      color: #fff;
+      overflow: hidden;
+    }
+
+    header {
+      background: #1a1a1a;
+      padding: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .tabs {
+      display: flex;
+      overflow-x: auto;
+      max-width: 100%;
+      flex: 1;
+    }
+
+    .tab {
+      padding: 10px 20px;
+      background: #222;
+      margin-right: 2px;
+      border-radius: 5px 5px 0 0;
+      cursor: pointer;
+      transition: background 0.2s;
+      white-space: nowrap;
+    }
+
+    .tab.active {
+      background: #ff6347;
+    }
+
+    .tab:hover {
+      background: #333;
+    }
+
+    .tab-controls {
+      display: flex;
+      gap: 5px;
+      align-items: center;
+      padding-left: 10px;
+    }
+
+    .add-tab-btn {
+      background: #ff6347;
+      border: none;
+      color: #fff;
+      padding: 8px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .add-tab-btn:hover {
+      background: #e5533d;
+    }
+
+    .search-bar {
+      background: #121212;
+      border: 1px solid #444;
+      color: #fff;
+      padding: 5px 10px;
+      border-radius: 4px;
+      margin-left: 10px;
+      width: 250px;
+    }
+
+    iframe {
+      width: 100%;
+      height: calc(100vh - 70px);
+      border: none;
+    }
+
+    #tabContainer {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+
+    .tab-content {
+      flex-grow: 1;
+      position: relative;
+    }
+
+    .tab-frame {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: none;
+    }
+
+    .tab-frame.active {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <div id="tabContainer">
+    <header>
+      <div class="tabs" id="tabs"></div>
+      <div class="tab-controls">
+        <button class="add-tab-btn" onclick="addTab()">+</button>
+        <input class="search-bar" type="text" id="searchInput" placeholder="Search tabs..." oninput="filterTabs()">
+      </div>
+    </header>
+    <div class="tab-content" id="tabContent"></div>
+  </div>
+
+  <script>
+    let tabCount = 0;
+    let tabs = [];
+    let activeTab = null;
+
+    function createTab(title = "New Tab", url = "https://duckduckgo.com") {
+      const tabId = "tab" + tabCount++;
+      const tabEl = document.createElement("div");
+      tabEl.className = "tab";
+      tabEl.id = tabId;
+      tabEl.textContent = title;
+      tabEl.onclick = () => activateTab(tabId);
+      document.getElementById("tabs").appendChild(tabEl);
+
+      const frame = document.createElement("iframe");
+      frame.className = "tab-frame";
+      frame.dataset.tabId = tabId;
+      frame.src = url;
+      document.getElementById("tabContent").appendChild(frame);
+
+      tabs.push({ id: tabId, title, frame });
+      activateTab(tabId);
+    }
+
+    function activateTab(tabId) {
+      tabs.forEach(({ id, frame }) => {
+        const tabEl = document.getElementById(id);
+        if (id === tabId) {
+          tabEl.classList.add("active");
+          frame.classList.add("active");
+          activeTab = id;
+        } else {
+          tabEl.classList.remove("active");
+          frame.classList.remove("active");
+        }
+      });
+    }
+
+    function addTab() {
+      createTab("New Tab");
+    }
+
+    function filterTabs() {
+      const input = document.getElementById("searchInput").value.toLowerCase();
+      tabs.forEach(({ id, title }) => {
+        const tabEl = document.getElementById(id);
+        if (title.toLowerCase().includes(input)) {
+          tabEl.style.display = "block";
+        } else {
+          tabEl.style.display = "none";
+        }
+      });
+    }
+
+    // Initial tab
+    addTab();
+  </script>
+
+  <!-- Ultraviolet Scripts (Simulated Sample Below) -->
+  <script src="uv.bundle.js"></script>
+  <script src="uv.config.js"></script>
+  <script>
+    // Hook up UV-like browsing with your iframe (pseudo-example)
+    // You'd normally wrap the iframe's src with `__uv$config.encodeUrl(url)`
+    // and ensure the service worker is registered
+    // Example:
+    // const encoded = __uv$config.encodeUrl("https://example.com");
+    // frame.src = encoded;
+  </script>
+</body>
+</html>
