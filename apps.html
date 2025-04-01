@@ -241,6 +241,18 @@
         function openPage(url) {
     window.location.href = url; // Open the link in the current tab
 }
+        function filterCards() {
+            const searchTerm = document.getElementById('search').value.toLowerCase();
+            const cards = document.querySelectorAll('.game-card');
+            cards.forEach(card => {
+                const cardText = card.querySelector('p').textContent.toLowerCase();
+                if (cardText.includes(searchTerm)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
     </script>
 </body>
 </html>
