@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta property="og:title" content="US4 | Proxy">
+  <meta property="og:description" content="Search the web freely with our web proxy!">
+  <meta property="og:image" content="/storage/images/logo.png">
+  <title>US4 Proxy</title>
+  <link rel="icon" href="https://voucan-us4.github.io/storage/images/googleclassroom.png" type="image/png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Comfortaa', sans-serif;
+      font-weight: bold;
+    }
+
+    body {
+      background-color: black;
+      color: white;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Tabs */
+    .tabs {
+      display: flex;
+      align-items: center;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(10px);
+      padding: 5px;
+      width: 100%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 1200;
+      border-bottom: 2px solid #D500F9;
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+
+    .tab {
+      display: flex;
+      align-items: center;
+      padding: 10px 15px;
+      color: white;
+      cursor: pointer;
+      background: rgba(255, 255, 255, 0.1);
+      margin: 3px;
+      border-radius: 5px;
+      text-overflow: ellipsis;
+      max-width: 200px;
+      overflow: hidden;
+    }
+
+    .tab.active {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .tab .favicon {
+      width: 16px;
+      height: 16px;
+      margin-right: 5px;
+    }
+
+    .tab .close-button {
+      margin-left: 8px;
+      color: white;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .add-tab-button {
+      padding: 10px;
+      cursor: pointer;
+      background: rgba(255, 255, 255, 0.2);
+      color: white;
+      border-radius: 5px;
+      font-size: 18px;
+      margin-left: 5px;
+    }
+
+    /* Navbar */
+    .navbar {
+      display: flex;
+      align-items: center;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(10px);
+      padding: 10px;
+      position: fixed;
+      top: 50px;
+      left: 0;
+      width: 100%;
+      z-index: 1100;
+    }
+
+    .nav-btn {
+      background: rgba(255, 255, 255, 0.2);
+      color: white;
+      padding: 8px 12px;
+      margin: 0 5px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .nav-btn:hover {
+      background: rgba(255, 255, 255, 0.3);
+    }
+
+    .search-bar {
+      flex-grow: 1;
+      max-width: 600px;
+      padding: 8px;
+      border-radius: 5px;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      background: rgba(0, 0, 0, 0.3);
+      color: white;
+      font-size: 16px;
+      text-align: center;
+    }
+
+    .content-wrapper {
+      flex-grow: 1;
+      margin-top: 100px;
+    }
+
+    iframe {
+      width: 100%;
+      height: 100vh;
+      border: none;
+      display: none;
+    }
+
+    iframe.active {
+      display: block;
+    }
+
+    /* Quick App Shortcuts */
+    .shortcuts {
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+    }
+
+    .shortcut-btn {
+      background: rgba(255, 255, 255, 0.2);
+      color: white;
+      padding: 10px;
+      border-radius: 50%;
+      font-size: 18px;
+      margin: 5px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="tabs" id="tabs">
+    <div class="tab active" onclick="selectTab(this)">
+      <img src="https://www.google.com/favicon.ico" class="favicon">
+      New Tab
+      <span class="close-button" onclick="closeTab(event)">×</span>
+    </div>
+    <button class="add-tab-button" onclick="addTab()">+</button>
+  </div>
+
+  <div class="navbar">
+    <button onclick="home()" class="nav-btn"><i class="fa fa-home"></i></button>
+    <button onclick="search()" class="nav-btn"><i class="fa fa-search"></i></button>
+    <input type="text" id="search-input" class="search-bar" placeholder="Search or enter a URL">
+  </div>
+
+  <div class="content-wrapper">
+    <iframe class="tab-iframe active" src="about:blank" onload="updateTabFavicon(this)"></iframe>
+  </div>
+
+  <div class="shortcuts">
+    <button class="shortcut-btn" onclick="openShortcut('https://www.google.com')"><i class="fab fa-google"></i></button>
+    <button class="shortcut-btn" onclick="openShortcut('https://www.youtube.com')"><i class="fab fa-youtube"></i></button>
+  </div>
+
+  <script>
+    let tabCount = 1;
+
+    function selectTab(tab) {
+      document.querySelectorAll('.tab, .tab-iframe').forEach(el => el.classList.remove('active'));
+      tab.classList.add('active');
+      document.querySelectorAll('.tab-iframe')[Array.from(tab.parentNode.children).indexOf(tab)].classList.add('active');
+    }
+
+    function addTab() {
+      tabCount++;
+      const tabsContainer = document.getElementById('tabs');
+      const newTab = document.createElement('div');
+      newTab.classList.add('tab');
+      newTab.innerHTML = `<img class="favicon" src="https://www.google.com/favicon.ico"> New Tab 
+                          <span class="close-button" onclick="closeTab(event)">×</span>`;
+      newTab.onclick = () => selectTab(newTab);
+      tabsContainer.insertBefore(newTab, document.querySelector('.add-tab-button'));
+      const iframe = document.createElement('iframe');
+      iframe.classList.add('tab-iframe');
+      iframe.src = 'about:blank';
+      iframe.onload = () => updateTabFavicon(iframe);
+      document.querySelector('.content-wrapper').appendChild(iframe);
+    }
+
+    function closeTab(event) {
+      event.stopPropagation();
+      const tab = event.target.closest('.tab');
+      const index = Array.from(tab.parentNode.children).indexOf(tab);
+      document.querySelectorAll('.tab-iframe')[index].remove();
+      tab.remove();
+    }
+
+    function updateTabFavicon(iframe) {
+      setTimeout(() => {
+        const index = Array.from(document.querySelectorAll('.tab-iframe')).indexOf(iframe);
+        const tab = document.querySelectorAll('.tab')[index];
+        if (tab) {
+          const favicon = tab.querySelector('.favicon');
+          favicon.src = `https://www.google.com/s2/favicons?domain=${new URL(iframe.contentWindow.location.href).hostname}`;
+        }
+      }, 1000);
+    }
+
+    function search() {
+      const query = document.getElementById('search-input').value;
+      if (query) {
+        document.querySelector('.tab-iframe.active').src = `https://www.google.com/search?q=${encodeURIComponent(query)}`;
+      }
+    }
+
+    function openShortcut(url) {
+      document.querySelector('.tab-iframe.active').src = url;
+    }
+  </script>
+</body>
+</html>
