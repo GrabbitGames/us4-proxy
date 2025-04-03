@@ -273,6 +273,12 @@
       <button onclick="toggleNavbar()" class="nav-btn" id="hide-navbar-btn">
         <i class="fa fa-chevron-up"></i>
       </button>
+      <button onclick="openApps()" class="nav-btn">
+    <i class="fas fa-th"></i>
+</button>
+<button onclick="openGames()" class="nav-btn">
+    <i class="fas fa-gamepad"></i>
+</button>
     </div>
   </div>
 
@@ -384,5 +390,15 @@ let tabCount = 1;
         });
       });
   </script>
+  <script>function openApps() {
+    const iframe = document.querySelector('.tab-iframe.active');
+    iframe.src = '/apps.html';
+}
+
+function openGames() {
+    const iframe = document.querySelector('.tab-iframe.active');
+    iframe.src = '/games.html';
+}
+</script>
 </body>
 </html>
