@@ -310,7 +310,7 @@ let tabCount = 1;
         tabsContainer.insertBefore(newTab, document.querySelector('.add-tab-button'));
         const iframe = document.createElement('iframe');
         iframe.classList.add('tab-iframe');
-        iframe.src = '/static/index.html';
+        iframe.src = '/apps.html';
         iframe.onload = function() {
           updateTabName(iframe);
         };
